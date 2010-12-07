@@ -10,13 +10,13 @@
     <version>1.0-SNAPSHOT</version>
 
     <organization>
-        <name>Example Company</name>
-        <url>http://www.example.com/</url>
+        <name>Leonid M.</name>
+        <url>http://leonardinius.blogspot.com/</url>
     </organization>
 
     <name>propertyset-storage-toolkit</name>
-    <description>This is the com.atlassian.plugins.studio.propertyset.storage:propertyset-storage-toolkit plugin for Atlassian Refapp.</description>
-    <packaging>atlassian-plugin</packaging>
+    <description>This is the project to easify propertyset storage and management in the Atlassian project line family.</description>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

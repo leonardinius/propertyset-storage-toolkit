@@ -10,12 +10,12 @@
     <version>1.0-SNAPSHOT</version>
 
     <organization>
-        <name>Example Company</name>
-        <url>http://www.example.com/</url>
+        <name>Leonid M.</name>
+        <url>http://leonardinius.blogspot.com/</url>
     </organization>
 
     <name>propertyset-storage-toolkit-sample</name>
-    <description>This is the com.atlassian.plugins.studio.propertyset.storage:propertyset-storage-toolkit-sample plugin for Atlassian Refapp.</description>
+    <description>Sample application.</description>
     <packaging>atlassian-plugin</packaging>
 
     <dependencies>
@@ -30,6 +30,13 @@
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.plugins.studio.propertyset.storage</groupId>
+            <artifactId>propertyset-storage-toolkit</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
   </dependencies>
 
