@@ -16,7 +16,7 @@
 
     <name>propertyset-storage-toolkit</name>
     <description>This is the project to easify propertyset storage and management in the Atlassian project line family.</description>
-    <packaging>jar</packaging>
+    <packaging>atlassian-plugin</packaging>
 
     <dependencies>
         <dependency>
