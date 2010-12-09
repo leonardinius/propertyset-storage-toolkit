@@ -1,4 +1,4 @@
-# README
+#README
 
 ## Description/Features
 The toolkit is a set of utilities to access, lookup and store [OpenSymphony.com PropertySet][http://www.opensymphony.com/propertyset/] data. The thing is - no one really knows what's the best and the most painless process to store Jira items configuration, let's say for your **__plugin A__** at both plugin and Project levels.
