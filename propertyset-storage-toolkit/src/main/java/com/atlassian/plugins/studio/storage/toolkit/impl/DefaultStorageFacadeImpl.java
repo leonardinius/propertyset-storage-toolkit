@@ -21,6 +21,9 @@ import com.atlassian.plugins.studio.storage.toolkit.Scope;
 import com.atlassian.plugins.studio.storage.toolkit.ScopeDescriptor;
 import com.atlassian.plugins.studio.storage.toolkit.StorageException;
 import com.atlassian.plugins.studio.storage.toolkit.StorageFacade;
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import com.opensymphony.module.propertyset.PropertyException;
 import com.opensymphony.module.propertyset.PropertySet;
 import org.apache.commons.lang.StringUtils;
@@ -129,12 +132,22 @@ public class DefaultStorageFacadeImpl<T, S extends Scope<T>> implements StorageF
 
     @SuppressWarnings({"unchecked"})
     public Collection<String> getKeys() throws StorageException {
-        return delegate.getKeys();
+        return cleanKeys(delegate.getKeys());
+    }
+
+    private Collection<String> cleanKeys(Collection<String> keys) {
+        if (keys == null) return keys;
+
+        return ImmutableList.copyOf(Iterables.transform(keys, new Function<String, String>() {
+            public String apply(String from) {
+                return StringUtils.removeStart(from, scopeDescriptor.getKeyPrefix());
+            }
+        }));
     }
 
     @SuppressWarnings({"unchecked"})
     public Collection<String> getKeys(String keyPrefix) throws StorageException {
-        return delegate.getKeys(keyPrefix);
+        return cleanKeys(delegate.getKeys(keyPrefix));
     }
 
     public void setLong(String key, Long value) throws StorageException {

@@ -25,9 +25,12 @@ import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.module.propertyset.PropertySetManager;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.XStreamException;
-import org.ofbiz.core.entity.GenericDelegator;
+import org.apache.commons.lang.StringUtils;
+import org.ofbiz.core.entity.*;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,30 +39,25 @@ import java.util.Map;
  * Time: 12:28 AM
  */
 public class DefaultScopeOperationsImpl implements ScopeOperations {
-    private final String implementationName;
+    private static final String STORAGE_ENTITY = "OSPropertyEntry";
+    private static final String STORAGE_IMPL = "ofbiz";
+    private static final String DELEGATOR_NAME = "default";
 
-    public DefaultScopeOperationsImpl(String implementationName) {
-        this.implementationName = implementationName;
-    }
-
-    public DefaultScopeOperationsImpl() {
-        this("ofbiz");
-    }
 
     /**
      * Provides underlying PropertySet to delegate actual work to
      *
      * @param descriptor scope descriptor
-     * @return
+     * @return loads delegate
      * @throws com.atlassian.plugins.studio.storage.toolkit.StorageException
      *
      */
     public PropertySet loadDelegate(ScopeDescriptor descriptor) throws StorageException {
         final Map<String, Object> props = ImmutableMap.<String, Object>of(
-                "delegator.name", implementationName,
+                "delegator.name", DELEGATOR_NAME,
                 "entityName", descriptor.getEntityName(),
                 "entityId", descriptor.getEntityId());
-        return PropertySetManager.getInstance(implementationName, props);
+        return PropertySetManager.getInstance(STORAGE_IMPL, props);
     }
 
     public void remove(PropertySet delegate) throws StorageException {
@@ -77,7 +75,7 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
     }
 
     public void removeAll(ScopeDescriptor descriptor) throws StorageException {
-        remove(loadDelegate(descriptor));
+        removeAllByScope(descriptor);
     }
 
     public String serialize(Object instance) throws StorageException {
@@ -109,7 +107,43 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
     }
 
     private GenericDelegator getGenericDelegator() {
-        return GenericDelegator.getGenericDelegator(implementationName);
+        return GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
     }
 
+    private void removeAllByScope(ScopeDescriptor descriptor) throws StorageException {
+
+        try {
+            final List<EntityExpr> likeExpressions = new LinkedList<EntityExpr>();
+
+            if (descriptor.getEntityId() != null) {
+                likeExpressions.add(new EntityExpr("entityId", EntityOperator.EQUALS, descriptor.getEntityId()));
+            }
+
+            if (StringUtils.isNotEmpty(descriptor.getEntityName())) {
+                likeExpressions.add(new EntityExpr("entityName", EntityOperator.EQUALS, descriptor.getEntityName()));
+            }
+
+            if (StringUtils.isNotEmpty(descriptor.getKeyPrefix())) {
+                likeExpressions.add(new EntityExpr("propertyKey", EntityOperator.LIKE, descriptor.getKeyPrefix() + "%"));
+            }
+
+            final EntityConditionList ecl = new EntityConditionList(likeExpressions, EntityOperator.AND);
+
+            @SuppressWarnings({"unchecked"})
+            List<GenericValue> entries = getGenericDelegator().findByCondition(STORAGE_ENTITY, ecl, null, null);
+
+            if (entries != null) {
+                for (GenericValue gv : entries) {
+                    //getGenericDelegator().removeValue(gv);
+                    if (gv != null)
+                        gv.remove();
+                }
+            }
+
+        } catch (final GenericEntityException e) {
+            throw new StorageException(e);
+        }
+    }
 }
+
+

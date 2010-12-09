@@ -34,7 +34,7 @@ public interface ScopeOperations<T, S extends Scope<T>> {
      * Provides underlying PropertySet to delegate actual work to
      *
      * @param descriptor scope descriptor
-     * @return
+     * @return delegate loaded
      * @throws StorageException
      */
     PropertySet loadDelegate(ScopeDescriptor descriptor) throws StorageException;
