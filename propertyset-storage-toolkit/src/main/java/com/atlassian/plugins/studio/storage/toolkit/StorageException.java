@@ -15,17 +15,27 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.propertyset.storage;
-
-import com.opensymphony.module.propertyset.PropertySchema;
+package com.atlassian.plugins.studio.storage.toolkit;
 
 /**
  * User: leonidmaslov
  * Date: 12/8/10
- * Time: 3:10 AM
+ * Time: 3:02 AM
  */
-public interface Scope {
-    PropertySchema getDelegate() throws StorageException;
+public class StorageException extends RuntimeException {
+    public StorageException() {
+        super();
+    }
 
-    String prepareKey(String key);
+    public StorageException(String s) {
+        super(s);
+    }
+
+    public StorageException(String s, Throwable throwable) {
+        super(s, throwable);
+    }
+
+    public StorageException(Throwable throwable) {
+        super(throwable);
+    }
 }

@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.propertyset.storage;
+package com.atlassian.plugins.studio.storage.toolkit;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Properties;
@@ -29,7 +30,7 @@ import java.util.Properties;
  * Date: 12/8/10
  * Time: 2:36 AM
  */
-public interface StorageFacade {
+public interface StorageFacade<T extends Scope> {
 
     void setBoolean(String key, boolean value) throws StorageException;
 
@@ -46,9 +47,9 @@ public interface StorageFacade {
     Date getDate(String key) throws StorageException;
 
 
-    void setDouble(String key, double value) throws StorageException;
+    void setDouble(String key, BigDecimal value) throws StorageException;
 
-    double getDouble(String key) throws StorageException;
+    BigDecimal getDouble(String key) throws StorageException;
 
 
     Collection<String> getKeys() throws StorageException;
@@ -56,9 +57,9 @@ public interface StorageFacade {
     Collection<String> getKeys(String keyPrefix) throws StorageException;
 
 
-    void setLong(String key, long value) throws StorageException;
+    void setLong(String key, Long value) throws StorageException;
 
-    long getLong(String key) throws StorageException;
+    Long getLong(String key) throws StorageException;
 
 
     void setObject(String key, java.lang.Object objectValue) throws StorageException;
@@ -83,6 +84,6 @@ public interface StorageFacade {
 
     boolean exists(String key) throws StorageException;
 
-    void remove(String key) throws StorageException;
+    boolean remove(String key) throws StorageException;
 
 }

@@ -22,7 +22,7 @@
         <vendor name="${project.organization.name}" url="${project.organization.url}" />
     </plugin-info>
 
-    <servlet name="propertyset-storage-toolkit-sample" class="com.atlassian.plugins.studio.propertyset.storage.ExampleServlet" key="test">
+    <servlet name="propertyset-storage-toolkit-sample" class="com.atlassian.plugins.studio.storage.ExampleServlet" key="test">
         <url-pattern>/test</url-pattern>
     </servlet>
 </atlassian-plugin>

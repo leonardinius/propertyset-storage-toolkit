@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.propertyset.storage;
+package com.atlassian.plugins.studio.storage;
 
 import org.junit.Test;
 
 /**
- * Testing {@link com.atlassian.plugins.studio.propertyset.storage.ExampleServlet}
+ * Testing {@link com.atlassian.plugins.studio.storage.ExampleServlet}
  */
 public class ExampleServletTest
 {

@@ -15,47 +15,45 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.propertyset.storage.impl;
+package com.atlassian.plugins.studio.storage.toolkit;
 
 import com.atlassian.gzipfilter.org.apache.commons.lang.builder.ToStringBuilder;
 import com.atlassian.gzipfilter.org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-class SimpleScopeConfiguration {
-    public String getPrefix() {
-        return prefix;
+/**
+ * scope configuration/descriptor
+ */
+public class ScopeDescriptor {
+    public ScopeDescriptor(String keyPrefix, String entityName, Long entityId) {
+        this.entityName = entityName;
+        this.keyPrefix = keyPrefix;
+        this.entityId = entityId;
     }
 
-    public String getSuffix() {
-        return suffix;
+
+    public String getKeyPrefix() {
+        return keyPrefix;
     }
 
     public Long getEntityId() {
         return entityId;
     }
 
-    public Long getEntityName() {
+    public String getEntityName() {
         return entityName;
     }
 
-    private final String prefix;
-    private final String suffix;
+    private final String keyPrefix;
     private final Long entityId;
-    private final Long entityName;
 
-    public SimpleScopeConfiguration(String prefix, String suffix, Long entityName, Long entityId) {
-        this.entityName = entityName;
-        this.prefix = prefix;
-        this.suffix = suffix;
-        this.entityId = entityId;
-    }
+    private final String entityName;
 
 
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(getPrefix())
-                .append(getSuffix())
+                .append(getKeyPrefix())
                 .append(getEntityName())
                 .append(getEntityId())
                 .toHashCode();
@@ -66,12 +64,11 @@ class SimpleScopeConfiguration {
 
         if (this == o) {
             result = true;
-        } else if (o instanceof SimpleScopeConfiguration) {
-            SimpleScopeConfiguration other = (SimpleScopeConfiguration) o;
+        } else if (o instanceof ScopeDescriptor) {
+            ScopeDescriptor other = (ScopeDescriptor) o;
 
             result = new EqualsBuilder()
-                    .append(getPrefix(), other.getPrefix())
-                    .append(getSuffix(), other.getSuffix())
+                    .append(getKeyPrefix(), other.getKeyPrefix())
                     .append(getEntityName(), other.getEntityName())
                     .append(getEntityId(), other.getEntityId())
                     .isEquals();

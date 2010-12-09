@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.propertyset.storage;
+package com.atlassian.plugins.studio.storage;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
