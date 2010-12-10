@@ -26,7 +26,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * storage instance id
  */
 public class InstanceId {
-    public InstanceId(String keyPrefix, String entityName, Long entityId) {
+    public InstanceId(Long entityId, String entityName, String keyPrefix) {
         this.keyPrefix = keyPrefix;
         this.entityName = entityName;
         this.entityId = entityId;

@@ -94,7 +94,7 @@ public class Scopes {
 
             return new AbstractDefaultScopeImpl<T>(bridgeImpl) {
                 @Override
-                protected InstanceId getInstanceId(T context) {
+                public InstanceId getInstanceId(T context) {
                     return instanceIdProvider.apply(context);
                 }
 
@@ -200,7 +200,7 @@ public class Scopes {
         }
 
         public InstanceId apply(@Nullable U from) {
-            return new InstanceId(keyPrefix, entityName, entryId);
+            return new InstanceId(entryId, entityName, keyPrefix);
         }
     }
 
@@ -215,7 +215,7 @@ public class Scopes {
         }
 
         public InstanceId apply(@Nullable Long from) {
-            return new InstanceId(keyPrefix, entityName, from);
+            return new InstanceId(from, entityName, keyPrefix);
         }
 
     }
@@ -231,7 +231,7 @@ public class Scopes {
         }
 
         public InstanceId apply(@Nullable GenericValue from) {
-            return new InstanceId(keyPrefix, entityName, GenericValueUtils.transformToLongIds(ImmutableList.of(from))[0]);
+            return new InstanceId(GenericValueUtils.transformToLongIds(ImmutableList.of(from))[0], entityName, keyPrefix);
         }
 
     }

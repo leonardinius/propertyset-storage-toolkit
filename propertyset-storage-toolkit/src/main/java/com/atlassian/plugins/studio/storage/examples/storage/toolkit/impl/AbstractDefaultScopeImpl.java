@@ -34,7 +34,7 @@ public abstract class AbstractDefaultScopeImpl<U> implements Scope<U> {
         this.bridge = bridge;
     }
 
-    protected abstract InstanceId getInstanceId(U context);
+    public abstract InstanceId getInstanceId(U context);
 
 
     /**
