@@ -9,13 +9,10 @@ As the project name states - it uses PropertySet as underlying storage implement
 ## Installation
 See [Managing Jira's Plugins ](http://confluence.atlassian.com/display/JIRA/Managing+JIRA's+Plugins) page for more details.
 
-## Sample code
-.. TDB ..
-
 ## Sample application
 .. TDB ..
 
-## Recepies
-.. TDB ..
+## How-To Recipes
+.. TDB .. Now we are cooking.
 
 ## Other stuff 
