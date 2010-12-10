@@ -44,29 +44,11 @@ public class Scopes {
     private Scopes() {
     }
 
-    private static <U> Scope<U> newDefaultScope(final Function<U, InstanceId> instanceIdProvider, final Function<
-            ScopeOperations, Void> deleteAllFunctions, final ScopeOperations bridge) {
-        return new AbstractDefaultScopeImpl<U>(bridge) {
-            @Override
-            protected InstanceId getInstanceId(U context) {
-                return instanceIdProvider.apply(context);
-            }
+    public static final class Builder<T> {
+        private Function<T, InstanceId> instanceIdProvider;
+        private Function<ScopeOperations, Void> deleteAllFunctions;
+        private ScopeOperations bridge = null;
 
-            @Override
-            public void removeAll() throws StorageException {
-                deleteAllFunctions.apply(bridge);
-            }
-        };
-    }
-
-    private static <U> Scope<U> newDefaultScope(final Function<U, InstanceId> instanceIdProvider, final Function<
-            ScopeOperations, Void> deleteAllFunctions) {
-        return newDefaultScope(instanceIdProvider, deleteAllFunctions, DEFAULT_OPERATIONS_IMPL_BRIDGE);
-    }
-
-    public static class Builder<T> {
-        Function<T, InstanceId> instanceIdProvider;
-        Function<ScopeOperations, Void> deleteAllFunctions;
 
         public Builder(Function<T, InstanceId> instanceIdProvider, Function<ScopeOperations, Void> deleteAllFunctions) {
             this.instanceIdProvider = instanceIdProvider;
@@ -87,6 +69,11 @@ public class Scopes {
             return this;
         }
 
+        public Builder withBridge(ScopeOperations bridge) {
+            this.bridge = bridge;
+            return this;
+        }
+
         public <U> Builder<U> as(final Function<U, T> transformer) {
             Function<U, InstanceId> newIdProvider = new Function<U, InstanceId>() {
                 Function<T, InstanceId> oldIdProvider = Builder.this.instanceIdProvider;
@@ -102,7 +89,20 @@ public class Scopes {
         public Scope<T> build() {
             Assertions.notNull("InstanceId provider is not specified", instanceIdProvider);
             Assertions.notNull("DeleteALL functionality is not provided", deleteAllFunctions);
-            return newDefaultScope(instanceIdProvider, deleteAllFunctions);
+
+            final ScopeOperations bridgeImpl = this.bridge == null ? DEFAULT_OPERATIONS_IMPL_BRIDGE : bridge;
+
+            return new AbstractDefaultScopeImpl<T>(bridgeImpl) {
+                @Override
+                protected InstanceId getInstanceId(T context) {
+                    return instanceIdProvider.apply(context);
+                }
+
+                @Override
+                public void removeAll() throws StorageException {
+                    deleteAllFunctions.apply(bridgeImpl);
+                }
+            };
         }
     }
 
