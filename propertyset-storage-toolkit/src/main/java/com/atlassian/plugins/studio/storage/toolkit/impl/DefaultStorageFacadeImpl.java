@@ -17,8 +17,8 @@
 
 package com.atlassian.plugins.studio.storage.toolkit.impl;
 
+import com.atlassian.plugins.studio.storage.toolkit.InstanceId;
 import com.atlassian.plugins.studio.storage.toolkit.Scope;
-import com.atlassian.plugins.studio.storage.toolkit.ScopeDescriptor;
 import com.atlassian.plugins.studio.storage.toolkit.StorageException;
 import com.atlassian.plugins.studio.storage.toolkit.StorageFacade;
 import com.google.common.base.Function;
@@ -37,12 +37,12 @@ import java.util.*;
  * Time: 1:32 AM
  */
 public class DefaultStorageFacadeImpl<T, S extends Scope<T>> implements StorageFacade<S> {
-    private final ScopeDescriptor scopeDescriptor;
-    private final ScopeOperations<T, S> bridge;
+    private final InstanceId instanceId;
+    private final ScopeOperations bridge;
     private final PropertySet delegate;
 
-    public DefaultStorageFacadeImpl(ScopeDescriptor scopeDescriptor, ScopeOperations<T, S> bridge, PropertySet delegate) {
-        this.scopeDescriptor = scopeDescriptor;
+    public DefaultStorageFacadeImpl(InstanceId instanceId, ScopeOperations bridge, PropertySet delegate) {
+        this.instanceId = instanceId;
         this.bridge = bridge;
         this.delegate = delegate;
     }
@@ -50,7 +50,7 @@ public class DefaultStorageFacadeImpl<T, S extends Scope<T>> implements StorageF
 
     private String getKey(String key) {
         return new StringBuilder()
-                .append(StringUtils.defaultIfEmpty(scopeDescriptor.getKeyPrefix(), ""))
+                .append(StringUtils.defaultIfEmpty(instanceId.getKeyPrefix(), ""))
                 .append(key).toString();
     }
 
@@ -140,7 +140,7 @@ public class DefaultStorageFacadeImpl<T, S extends Scope<T>> implements StorageF
 
         return ImmutableList.copyOf(Iterables.transform(keys, new Function<String, String>() {
             public String apply(String from) {
-                return StringUtils.removeStart(from, scopeDescriptor.getKeyPrefix());
+                return StringUtils.removeStart(from, instanceId.getKeyPrefix());
             }
         }));
     }
@@ -299,5 +299,9 @@ public class DefaultStorageFacadeImpl<T, S extends Scope<T>> implements StorageF
         } catch (PropertyException e) {
             throw new StorageException(e);
         }
+    }
+
+    public void removeAll() throws StorageException {
+        bridge.remove(delegate);
     }
 }

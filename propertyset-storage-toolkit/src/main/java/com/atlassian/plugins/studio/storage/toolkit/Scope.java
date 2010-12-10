@@ -26,8 +26,6 @@ package com.atlassian.plugins.studio.storage.toolkit;
  */
 @SuppressWarnings({"JavaDoc"})
 public interface Scope<U> {
-    ScopeDescriptor getDescriptor();
-
     /**
      * Provides underlying PropertySet to delegate actual work to
      *
@@ -36,15 +34,6 @@ public interface Scope<U> {
      * @throws StorageException
      */
     StorageFacade<Scope<U>> load(U context) throws StorageException;
-
-
-    /**
-     * Removes ALL the related items for this particular scope object
-     *
-     * @param storage storage instance to delete
-     * @throws StorageException
-     */
-    void remove(StorageFacade<Scope<U>> storage) throws StorageException;
 
 
     void remove(U context) throws StorageException;

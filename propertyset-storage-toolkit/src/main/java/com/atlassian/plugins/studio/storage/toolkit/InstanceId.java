@@ -23,15 +23,14 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * scope configuration/descriptor
+ * storage instance id
  */
-public class ScopeDescriptor {
-    public ScopeDescriptor(String keyPrefix, String entityName, Long entityId) {
-        this.entityName = entityName;
+public class InstanceId {
+    public InstanceId(String keyPrefix, String entityName, Long entityId) {
         this.keyPrefix = keyPrefix;
+        this.entityName = entityName;
         this.entityId = entityId;
     }
-
 
     public String getKeyPrefix() {
         return keyPrefix;
@@ -47,7 +46,6 @@ public class ScopeDescriptor {
 
     private final String keyPrefix;
     private final Long entityId;
-
     private final String entityName;
 
 
@@ -64,8 +62,8 @@ public class ScopeDescriptor {
 
         if (this == o) {
             result = true;
-        } else if (o instanceof ScopeDescriptor) {
-            ScopeDescriptor other = (ScopeDescriptor) o;
+        } else if (o instanceof InstanceId) {
+            InstanceId other = (InstanceId) o;
 
             result = new EqualsBuilder()
                     .append(getKeyPrefix(), other.getKeyPrefix())

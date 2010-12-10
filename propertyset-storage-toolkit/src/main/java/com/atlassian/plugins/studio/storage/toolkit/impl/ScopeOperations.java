@@ -17,8 +17,7 @@
 
 package com.atlassian.plugins.studio.storage.toolkit.impl;
 
-import com.atlassian.plugins.studio.storage.toolkit.Scope;
-import com.atlassian.plugins.studio.storage.toolkit.ScopeDescriptor;
+import com.atlassian.plugins.studio.storage.toolkit.InstanceId;
 import com.atlassian.plugins.studio.storage.toolkit.StorageException;
 import com.opensymphony.module.propertyset.PropertySet;
 
@@ -29,7 +28,7 @@ import com.opensymphony.module.propertyset.PropertySet;
  * Date: 12/8/10
  * Time: 3:10 AM
  */
-public interface ScopeOperations<T, S extends Scope<T>> {
+public interface ScopeOperations {
     /**
      * Provides underlying PropertySet to delegate actual work to
      *
@@ -37,11 +36,11 @@ public interface ScopeOperations<T, S extends Scope<T>> {
      * @return delegate loaded
      * @throws StorageException
      */
-    PropertySet loadDelegate(ScopeDescriptor descriptor) throws StorageException;
+    PropertySet loadDelegate(InstanceId descriptor) throws StorageException;
 
-    void remove(PropertySet delegate) throws StorageException;
+    void remove(PropertySet underlyingStorage) throws StorageException;
 
-    void removeAll(ScopeDescriptor descriptor) throws StorageException;
+    void removeByFilter(Long entityId, String entityName, String keyPrefix) throws StorageException;
 
     String serialize(Object instance) throws StorageException;
 

@@ -17,7 +17,7 @@
 
 package com.atlassian.plugins.studio.storage.toolkit.impl;
 
-import com.atlassian.plugins.studio.storage.toolkit.ScopeDescriptor;
+import com.atlassian.plugins.studio.storage.toolkit.InstanceId;
 import com.atlassian.plugins.studio.storage.toolkit.StorageException;
 import com.google.common.collect.ImmutableMap;
 import com.opensymphony.module.propertyset.PropertyException;
@@ -47,35 +47,74 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
     /**
      * Provides underlying PropertySet to delegate actual work to
      *
-     * @param descriptor scope descriptor
+     * @param instanceId scope instanceId
      * @return loads delegate
      * @throws com.atlassian.plugins.studio.storage.toolkit.StorageException
      *
      */
-    public PropertySet loadDelegate(ScopeDescriptor descriptor) throws StorageException {
+    public PropertySet loadDelegate(InstanceId instanceId) throws StorageException {
+        return loadPropertySet(instanceId.getEntityName(), instanceId.getEntityId());
+    }
+
+    private PropertySet loadPropertySet(String entityName, Long entityId) {
         final Map<String, Object> props = ImmutableMap.<String, Object>of(
                 "delegator.name", DELEGATOR_NAME,
-                "entityName", descriptor.getEntityName(),
-                "entityId", descriptor.getEntityId());
+                "entityName", entityName,
+                "entityId", entityId);
         return PropertySetManager.getInstance(STORAGE_IMPL, props);
     }
 
-    public void remove(PropertySet delegate) throws StorageException {
-        @SuppressWarnings({"unchecked"})
-        Collection<String> allKeys = delegate.getKeys("");
-        if (allKeys != null) {
-            for (String key : allKeys) {
-                try {
-                    delegate.remove(key);
-                } catch (PropertyException e) {
-                    throw new StorageException(e);
+    public void remove(PropertySet underlyingStorage) throws StorageException {
+        try {
+
+            @SuppressWarnings({"unchecked"})
+            Collection<String> allKeys = underlyingStorage.getKeys("");
+            if (allKeys != null) {
+                for (String key : allKeys) {
+                    underlyingStorage.remove(key);
                 }
             }
+
+        } catch (PropertyException e) {
+            throw new StorageException(e);
         }
     }
 
-    public void removeAll(ScopeDescriptor descriptor) throws StorageException {
-        removeAllByScope(descriptor);
+    public void removeByFilter(Long entityId, String entityName, String keyPrefix) throws StorageException {
+
+        try {
+            final List<EntityExpr> likeExpressions = new LinkedList<EntityExpr>();
+
+            if (entityId != null) {
+                likeExpressions.add(new EntityExpr("entityId", EntityOperator.EQUALS, entityId));
+            }
+
+            if (StringUtils.isNotBlank(entityName)) {
+                likeExpressions.add(new EntityExpr("entityName", EntityOperator.EQUALS, entityName));
+            }
+
+            if (StringUtils.isNotBlank(keyPrefix)) {
+                likeExpressions.add(new EntityExpr("propertyKey", EntityOperator.LIKE, keyPrefix + "%"));
+            }
+
+            final EntityConditionList ecl = new EntityConditionList(likeExpressions, EntityOperator.AND);
+
+            @SuppressWarnings({"unchecked"})
+            List<GenericValue> entries = getGenericDelegator().findByCondition(STORAGE_ENTITY, ecl, null, null);
+
+            if (entries != null) {
+                for (GenericValue gv : entries) {
+                    //getGenericDelegator().removeValue(gv);
+                    if (gv != null) {
+
+                        gv.remove();
+                    }
+                }
+            }
+
+        } catch (final GenericEntityException e) {
+            throw new StorageException(e);
+        }
     }
 
     public String serialize(Object instance) throws StorageException {
@@ -110,40 +149,6 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
         return GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
     }
 
-    private void removeAllByScope(ScopeDescriptor descriptor) throws StorageException {
-
-        try {
-            final List<EntityExpr> likeExpressions = new LinkedList<EntityExpr>();
-
-            if (descriptor.getEntityId() != null) {
-                likeExpressions.add(new EntityExpr("entityId", EntityOperator.EQUALS, descriptor.getEntityId()));
-            }
-
-            if (StringUtils.isNotEmpty(descriptor.getEntityName())) {
-                likeExpressions.add(new EntityExpr("entityName", EntityOperator.EQUALS, descriptor.getEntityName()));
-            }
-
-            if (StringUtils.isNotEmpty(descriptor.getKeyPrefix())) {
-                likeExpressions.add(new EntityExpr("propertyKey", EntityOperator.LIKE, descriptor.getKeyPrefix() + "%"));
-            }
-
-            final EntityConditionList ecl = new EntityConditionList(likeExpressions, EntityOperator.AND);
-
-            @SuppressWarnings({"unchecked"})
-            List<GenericValue> entries = getGenericDelegator().findByCondition(STORAGE_ENTITY, ecl, null, null);
-
-            if (entries != null) {
-                for (GenericValue gv : entries) {
-                    //getGenericDelegator().removeValue(gv);
-                    if (gv != null)
-                        gv.remove();
-                }
-            }
-
-        } catch (final GenericEntityException e) {
-            throw new StorageException(e);
-        }
-    }
 }
 
 

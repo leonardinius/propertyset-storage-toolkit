@@ -86,4 +86,6 @@ public interface StorageFacade<T extends Scope> {
 
     boolean remove(String key) throws StorageException;
 
+    void removeAll() throws StorageException;
+
 }
