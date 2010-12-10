@@ -19,10 +19,22 @@
     <plugin-info>
         <description>${project.description}</description>
         <version>${project.version}</version>
-        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
     </plugin-info>
 
-    <servlet name="propertyset-storage-toolkit-sample" class="com.atlassian.plugins.studio.storage.ExampleServlet" key="test">
+    <servlet name="propertyset-storage-toolkit-sample" class="com.atlassian.plugins.studio.storage.examples.ExampleServlet" key="test">
         <url-pattern>/test</url-pattern>
     </servlet>
+
+    <component-import key="${project.groupId}.${project.artifactId}:property-storage-toolkit-api">
+        <description>PropertySet storage API service.</description>
+        <interface>com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageService</interface>
+    </component-import>
+
+
+    <component key="exampleManager" name="Example IoC sample"
+               class="com.atlassian.plugins.studio.storage.examples.ExampleManagerImpl">
+        <interface>com.atlassian.plugins.studio.storage.examples.ExampleManager</interface>
+    </component>
+
 </atlassian-plugin>

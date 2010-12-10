@@ -15,18 +15,27 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage;
-
-import org.junit.Test;
+package com.atlassian.plugins.studio.storage.examples.storage.toolkit;
 
 /**
- * Testing {@link com.atlassian.plugins.studio.storage.ExampleServlet}
+ * User: leonidmaslov
+ * Date: 12/8/10
+ * Time: 3:02 AM
  */
-public class ExampleServletTest
-{
-    @Test
-    public void basic()
-    {
-        // add test here...
+public class StorageException extends RuntimeException {
+    public StorageException() {
+        super();
+    }
+
+    public StorageException(String s) {
+        super(s);
+    }
+
+    public StorageException(String s, Throwable throwable) {
+        super(s, throwable);
+    }
+
+    public StorageException(Throwable throwable) {
+        super(throwable);
     }
 }

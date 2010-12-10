@@ -22,9 +22,9 @@
         <vendor name="${project.organization.name}" url="${project.organization.url}"/>
     </plugin-info>
 
-    <component key="property-storage-toolkit-api" name="PropertySet Storage API Service"
-               class="com.atlassian.plugins.studio.storage.toolkit.service.DefaultStorageServiceImpl">
-        <interface>com.atlassian.plugins.studio.storage.toolkit.service.StorageService</interface>
+    <component public="true" key="property-storage-toolkit-api" name="PropertySet Storage API Service"
+               class="com.atlassian.plugins.studio.storage.examples.storage.toolkit.impl.DefaultStorageServiceImpl">
+        <interface>com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageService</interface>
     </component>
 
 </atlassian-plugin>

@@ -15,27 +15,34 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.toolkit;
+package com.atlassian.plugins.studio.storage.examples.storage.toolkit;
+
+import com.atlassian.jira.issue.Issue;
+import com.atlassian.jira.project.Project;
+import org.ofbiz.core.entity.GenericValue;
+import webwork.action.Action;
 
 /**
  * User: leonidmaslov
- * Date: 12/8/10
- * Time: 3:02 AM
+ * Date: 12/10/10
+ * Time: 5:31 AM
  */
-public class StorageException extends RuntimeException {
-    public StorageException() {
-        super();
-    }
+public interface StorageService {
 
-    public StorageException(String s) {
-        super(s);
-    }
+    StorageFacade projectStorage(Project project) throws StorageException;
 
-    public StorageException(String s, Throwable throwable) {
-        super(s, throwable);
-    }
 
-    public StorageException(Throwable throwable) {
-        super(throwable);
-    }
+    StorageFacade issueStorage(Issue issue) throws StorageException;
+
+
+    StorageFacade gvStorage(GenericValue gv) throws StorageException;
+
+
+    StorageFacade constantNameStorage(String name) throws StorageException;
+
+
+    StorageFacade actionStorage(Action action) throws StorageException;
+
+    <T extends Action> StorageFacade actionStorage(Class<T> actionClazz) throws StorageException;
+
 }

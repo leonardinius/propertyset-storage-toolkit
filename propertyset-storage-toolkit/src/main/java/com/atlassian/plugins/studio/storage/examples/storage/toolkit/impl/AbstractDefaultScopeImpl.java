@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.toolkit.impl;
+package com.atlassian.plugins.studio.storage.examples.storage.toolkit.impl;
 
-import com.atlassian.plugins.studio.storage.toolkit.InstanceId;
-import com.atlassian.plugins.studio.storage.toolkit.Scope;
-import com.atlassian.plugins.studio.storage.toolkit.StorageException;
-import com.atlassian.plugins.studio.storage.toolkit.StorageFacade;
+import com.atlassian.plugins.studio.storage.examples.storage.toolkit.InstanceId;
+import com.atlassian.plugins.studio.storage.examples.storage.toolkit.Scope;
+import com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageException;
+import com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageFacade;
 
 /**
  * User: leonidmaslov
@@ -42,7 +42,7 @@ public abstract class AbstractDefaultScopeImpl<U> implements Scope<U> {
      *
      * @param context scope context like Issue, Project, User
      * @return storage facade
-     * @throws com.atlassian.plugins.studio.storage.toolkit.StorageException
+     * @throws com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageException
      *
      */
     public StorageFacade load(U context) throws StorageException {
@@ -60,7 +60,7 @@ public abstract class AbstractDefaultScopeImpl<U> implements Scope<U> {
      * <p/>
      * Note: please use with caution
      *
-     * @throws com.atlassian.plugins.studio.storage.toolkit.StorageException
+     * @throws com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageException
      *
      */
     public abstract void removeAll() throws StorageException;

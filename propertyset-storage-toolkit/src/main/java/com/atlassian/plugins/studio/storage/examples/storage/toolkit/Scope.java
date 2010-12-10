@@ -15,11 +15,7 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.toolkit.impl;
-
-import com.atlassian.plugins.studio.storage.toolkit.InstanceId;
-import com.atlassian.plugins.studio.storage.toolkit.StorageException;
-import com.opensymphony.module.propertyset.PropertySet;
+package com.atlassian.plugins.studio.storage.examples.storage.toolkit;
 
 /**
  * Scope Bridge
@@ -28,21 +24,26 @@ import com.opensymphony.module.propertyset.PropertySet;
  * Date: 12/8/10
  * Time: 3:10 AM
  */
-public interface ScopeOperations {
+@SuppressWarnings({"JavaDoc"})
+public interface Scope<U> {
     /**
      * Provides underlying PropertySet to delegate actual work to
      *
-     * @param descriptor scope descriptor
-     * @return delegate loaded
+     * @param context scope context like Issue, Project, User
+     * @return storage facade
      * @throws StorageException
      */
-    PropertySet loadDelegate(InstanceId descriptor) throws StorageException;
+    StorageFacade load(U context) throws StorageException;
 
-    void remove(PropertySet underlyingStorage) throws StorageException;
 
-    void removeByFilter(Long entityId, String entityName, String keyPrefix) throws StorageException;
+    void remove(U context) throws StorageException;
 
-    String serialize(Object instance) throws StorageException;
-
-    Object deserialize(String input) throws StorageException;
+    /**
+     * removes    all the scope instances - like all Project configurations
+     * <p/>
+     * Note: please use with caution
+     *
+     * @throws StorageException
+     */
+    void removeAll() throws StorageException;
 }

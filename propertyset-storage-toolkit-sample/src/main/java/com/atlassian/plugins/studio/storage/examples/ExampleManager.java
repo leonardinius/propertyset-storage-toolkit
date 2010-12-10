@@ -15,35 +15,13 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.toolkit;
+package com.atlassian.plugins.studio.storage.examples;
 
 /**
- * Scope Bridge
- * <p/>
  * User: leonidmaslov
- * Date: 12/8/10
- * Time: 3:10 AM
+ * Date: 12/10/10
+ * Time: 5:56 AM
  */
-@SuppressWarnings({"JavaDoc"})
-public interface Scope<U> {
-    /**
-     * Provides underlying PropertySet to delegate actual work to
-     *
-     * @param context scope context like Issue, Project, User
-     * @return storage facade
-     * @throws StorageException
-     */
-    StorageFacade load(U context) throws StorageException;
-
-
-    void remove(U context) throws StorageException;
-
-    /**
-     * removes    all the scope instances - like all Project configurations
-     * <p/>
-     * Note: please use with caution
-     *
-     * @throws StorageException
-     */
-    void removeAll() throws StorageException;
+public interface ExampleManager {
+    void setup();
 }

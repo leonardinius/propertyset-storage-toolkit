@@ -15,13 +15,10 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.toolkit.provided;
+package com.atlassian.plugins.studio.storage.examples.storage.toolkit;
 
 import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.project.Project;
-import com.atlassian.plugins.studio.storage.toolkit.Scope;
-import com.atlassian.plugins.studio.storage.toolkit.StorageException;
-import com.atlassian.plugins.studio.storage.toolkit.StorageFacade;
 import org.ofbiz.core.entity.GenericValue;
 import webwork.action.Action;
 

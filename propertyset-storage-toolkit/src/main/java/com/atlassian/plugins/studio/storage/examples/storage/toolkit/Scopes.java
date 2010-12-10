@@ -15,18 +15,15 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.toolkit.provided;
+package com.atlassian.plugins.studio.storage.examples.storage.toolkit;
 
 import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.project.Project;
 import com.atlassian.jira.util.dbc.Assertions;
 import com.atlassian.jira.util.ofbiz.GenericValueUtils;
-import com.atlassian.plugins.studio.storage.toolkit.InstanceId;
-import com.atlassian.plugins.studio.storage.toolkit.Scope;
-import com.atlassian.plugins.studio.storage.toolkit.StorageException;
-import com.atlassian.plugins.studio.storage.toolkit.impl.AbstractDefaultScopeImpl;
-import com.atlassian.plugins.studio.storage.toolkit.impl.DefaultScopeOperationsImpl;
-import com.atlassian.plugins.studio.storage.toolkit.impl.ScopeOperations;
+import com.atlassian.plugins.studio.storage.examples.storage.toolkit.impl.AbstractDefaultScopeImpl;
+import com.atlassian.plugins.studio.storage.examples.storage.toolkit.impl.DefaultScopeOperationsImpl;
+import com.atlassian.plugins.studio.storage.examples.storage.toolkit.impl.ScopeOperations;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import org.ofbiz.core.entity.GenericValue;

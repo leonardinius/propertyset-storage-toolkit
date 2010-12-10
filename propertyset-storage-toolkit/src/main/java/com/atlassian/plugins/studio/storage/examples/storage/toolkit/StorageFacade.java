@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.toolkit;
+package com.atlassian.plugins.studio.storage.examples.storage.toolkit;
 
 import java.math.BigDecimal;
 import java.util.Collection;
