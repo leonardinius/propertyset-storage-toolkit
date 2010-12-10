@@ -38,6 +38,8 @@ import javax.annotation.Nullable;
  */
 public class Scopes {
     private static final DefaultScopeOperationsImpl DEFAULT_OPERATIONS_IMPL_BRIDGE = new DefaultScopeOperationsImpl();
+    private static final long CONSTANT_ENTITY_ID = 2L;
+    private static final long ACTION_ENTITY_ID = 3L;
 
     private Scopes() {
     }
@@ -147,7 +149,7 @@ public class Scopes {
 
         String entityName = "FacadeStorageConstant-" + name;
         String keyPrefix = "constant-";
-        Long entryId = 2L;
+        Long entryId = CONSTANT_ENTITY_ID;
         return new Builder<String>(new ConstantIdEntity<String>(entryId, entityName, keyPrefix),
                 new DeleteByConstantId(entryId, entityName, keyPrefix))
                 .build();
@@ -158,7 +160,7 @@ public class Scopes {
 
         String entityName = "FacadeStorageAction-" + actionClass.getName();
         String keyPrefix = "class-";
-        Long entryId = 2L;
+        Long entryId = ACTION_ENTITY_ID;
         return new Builder<String>(new Scopes.ConstantIdEntity<String>(entryId, entityName, keyPrefix),
                 new DeleteByConstantId(entryId, entityName, keyPrefix))
                 .as(new NoOpFun<Action, String>())
