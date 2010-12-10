@@ -33,7 +33,7 @@ public interface Scope<U> {
      * @return storage facade
      * @throws StorageException
      */
-    StorageFacade<Scope<U>> load(U context) throws StorageException;
+    StorageFacade load(U context) throws StorageException;
 
 
     void remove(U context) throws StorageException;

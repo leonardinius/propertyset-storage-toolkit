@@ -18,7 +18,6 @@
 package com.atlassian.plugins.studio.storage.toolkit.impl;
 
 import com.atlassian.plugins.studio.storage.toolkit.InstanceId;
-import com.atlassian.plugins.studio.storage.toolkit.Scope;
 import com.atlassian.plugins.studio.storage.toolkit.StorageException;
 import com.atlassian.plugins.studio.storage.toolkit.StorageFacade;
 import com.google.common.base.Function;
@@ -36,7 +35,7 @@ import java.util.*;
  * Date: 12/9/10
  * Time: 1:32 AM
  */
-public class DefaultStorageFacadeImpl<T, S extends Scope<T>> implements StorageFacade<S> {
+public class DefaultStorageFacadeImpl implements StorageFacade {
     private final InstanceId instanceId;
     private final ScopeOperations bridge;
     private final PropertySet delegate;

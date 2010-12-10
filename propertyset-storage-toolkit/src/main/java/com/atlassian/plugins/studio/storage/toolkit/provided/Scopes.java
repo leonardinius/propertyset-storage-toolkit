@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.toolkit.impl;
+package com.atlassian.plugins.studio.storage.toolkit.provided;
 
 import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.project.Project;
@@ -24,6 +24,9 @@ import com.atlassian.jira.util.ofbiz.GenericValueUtils;
 import com.atlassian.plugins.studio.storage.toolkit.InstanceId;
 import com.atlassian.plugins.studio.storage.toolkit.Scope;
 import com.atlassian.plugins.studio.storage.toolkit.StorageException;
+import com.atlassian.plugins.studio.storage.toolkit.impl.AbstractDefaultScopeImpl;
+import com.atlassian.plugins.studio.storage.toolkit.impl.DefaultScopeOperationsImpl;
+import com.atlassian.plugins.studio.storage.toolkit.impl.ScopeOperations;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import org.ofbiz.core.entity.GenericValue;
@@ -155,20 +158,28 @@ public class Scopes {
                 .build();
     }
 
-    public static Scope<Action> actionConfiguration(Class<? extends Action> actionClass) {
-        Assertions.notNull("Action class parameter is null", actionClass);
-
+    private static <T extends Action> Builder<String> makeActionBuilder(Class<T> actionClass) {
         String entityName = "FacadeStorageAction-" + actionClass.getName();
         String keyPrefix = "class-";
         Long entryId = ACTION_ENTITY_ID;
         return new Builder<String>(new Scopes.ConstantIdEntity<String>(entryId, entityName, keyPrefix),
-                new DeleteByConstantId(entryId, entityName, keyPrefix))
-                .as(new NoOpFun<Action, String>())
+                new DeleteByConstantId(entryId, entityName, keyPrefix));
+    }
+
+    public static <T extends Action> Scope<Class<T>> actionConfiguration(Class<T> actionClass) {
+        Assertions.notNull("Action class parameter is null", actionClass);
+
+        return makeActionBuilder(actionClass)
+                .as(new NoOpFun<Class<T>, String>())
                 .build();
     }
 
     public static Scope<Action> actionConfiguration(Action action) {
-        return actionConfiguration(action.getClass());
+        Assertions.notNull("Action parameter is null", action);
+
+        return makeActionBuilder(action.getClass())
+                .as(new NoOpFun<Action, String>())
+                .build();
     }
 
     public static class NoOpFun<F, T> implements Function<F, T> {

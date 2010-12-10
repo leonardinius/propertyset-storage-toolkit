@@ -45,9 +45,9 @@ public abstract class AbstractDefaultScopeImpl<U> implements Scope<U> {
      * @throws com.atlassian.plugins.studio.storage.toolkit.StorageException
      *
      */
-    public StorageFacade<Scope<U>> load(U context) throws StorageException {
+    public StorageFacade load(U context) throws StorageException {
         InstanceId instanceId = getInstanceId(context);
-        return new DefaultStorageFacadeImpl<U, Scope<U>>(instanceId, bridge, bridge.loadDelegate(instanceId));
+        return new DefaultStorageFacadeImpl(instanceId, bridge, bridge.loadDelegate(instanceId));
     }
 
 
