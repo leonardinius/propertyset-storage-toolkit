@@ -41,20 +41,7 @@ which may require to persist and access administrator input).
          return storageService.actionStorage(this);
      }
 
-     @Override
-     public String doDefault() throws Exception
-     {
-         loadConfig(getStorage());
-         return super.doDefault();
-     }
-
-     @Override
-     protected String doExecute() throws Exception
-     {
-         saveConfig(getStorage());
-         return super.doExecute();
-     }
-
+    
      private void loadConfig(StorageFacade storage)
      {
          setAdminOnly(storage.getBoolean(ADMIN_ONLY));
@@ -76,61 +63,11 @@ which may require to persist and access administrator input).
         private String text;
         private Long number;
         private Map<String, String> mapping;
-
-        public MySerializable(long number, String text, Map<String, String> mapping)
-        {
-            this.number = number;
-            this.mapping = mapping;
-            this.text = text;
-        }
-
-        public String getText()
-        {
-            return text;
-        }
-
-        public void setText(String text)
-        {
-            this.text = text;
-        }
-
-        public Long getNumber()
-        {
-            return number;
-        }
-
-        public void setNumber(Long number)
-        {
-            this.number = number;
-        }
-
-        public Map<String, String> getMapping()
-        {
-            return mapping;
-        }
-
-        public void setMapping(Map<String, String> mapping)
-        {
-            this.mapping = mapping;
-        }
-
-        @Override
-        public int hashCode()
-        {
-            return HashCodeBuilder.reflectionHashCode(this);
-        }
-
-        @Override
-        public boolean equals(Object o)
-        {
-            return EqualsBuilder.reflectionEquals(this, o);
-        }
-
-        @Override
-        public String toString()
-        {
-            return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-        }
+        
+        ...
+        getters, setters
+        ...
+        hashCode, equals
     }
 
 
