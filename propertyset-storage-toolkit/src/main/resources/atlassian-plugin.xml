@@ -27,11 +27,4 @@
         <description>The set of APIs exposed as public Service</description>
         <interface>com.atlassian.plugins.studio.storage.toolkit.StorageService</interface>
     </component>
-
-    <servlet key="propertyset-storage-toolkit-test-servlet" name="Sample &amp; Integration Test data Servlet"
-             class="com.atlassian.plugins.studio.storage.toolkit.test.IntegrationTestServlet">
-        <description>The servlet used for both feature demonstration and Integration testing</description>
-        <url-pattern>/propertyset-toolkit-storage/test.html</url-pattern>
-    </servlet>
-
 </atlassian-plugin>
