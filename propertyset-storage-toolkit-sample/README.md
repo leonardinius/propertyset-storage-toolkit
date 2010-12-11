@@ -1,4 +1,5 @@
 * Launch
+
     atlas-mvn -f ../propertyset-storage-toolkit/pom.xml clean package install \
       && atlas-mvn clean                                                      \
       && atlas-integration-test --plugins \
