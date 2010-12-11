@@ -6,27 +6,54 @@ The purpose and the intent of this project is to provide You as Plug-in develope
 
 As the project name states - it uses PropertySet as underlying storage implementation. It might not be the best choice for every plug-in out there in the wild world, still it's rather usable for most use cases I had so far.
 
+## Compatability
+The plugin is developed as JIRA Atlassian Plugin v2. This limits it's usage to JIRA > 4x.
+On the other hand - it does not have any dependency one new stuff and should work correctly one JIRA 3xml as well (needs adjustments).
+Please informe me if you would try to modify it for earlier versions.
+
 ## Feature Overview
 - Database persistence using [PropertySet](http://www.opensymphony.com/propertyset/) for underlying data storage
-- Has no additional JIRA dependencies and provides enhanced PpropertySet API sub-set
+- Has no additional JIRA dependencies and provides enhanced PropertySet API sub-set
+- Could be used both as JAR dependency bundled with your plugin OR as separate plugin, depending one your current needs.
 - Provides a rich set of out-of box list of _Scope_ objects. (_Scope_ defines the sandbox of the PropertySet storage instance). At
  the moment following configuration options are supported
-  1. Named configuration (**Example:** My Gadget1 Configuration)
-  1. Action configuration (**Example:** Your Plugin may contain _Administration_ action,
+  1. Named configuration scope (Example: My Gadget1 Configuration)
+  1. Action configuration scope (Example: your plugin may contain _Administration_ action,
 which may require to persist and access administrator input).
-  1. dsd
-tbd
+  1. Project configuration scope (Example: you may associate configuration information with project instances)
+  1. Issue configuration scope (Example: you may associate configuration information with project instances)
+- The list of scopes is not limited and you may come-up with your own _Scope_
 
-## See, It's Alive - Sample Application Demo
+## How do I get started?
 
-As you may notice, the project code consists from two separate and completely valid Atlassian JIRA plugins.
+As you may notice, the project code consists from two separate and completely valid Atlassian JIRA plugins. It contains the persistence
+toolkit itself as well as simple samples application with bundled-integration test and WebWork configurable action in action.
 
-    atlas-mvn -f ../propertyset-storage-toolkit/pom.xml  clean package install
+You may proceed as it follows:
+* Get the sources (if you are unfamiliar with Git or Github, help is [here](http://help.github.com/))
+* If you still don't hane Atlassian PDK installed - you probably are reading wrong README then. (it's [out there](http://confluence.atlassian.com/display/DEVNET/Developing+your+Plugin+using+the+Atlassian+Plugin+SDK).I used atlassian-plugin-sdk-3.2.3 at the moment of writing.
+* Launch the terminal and `cd` to propertyset-storage-toolkit-sample folder
+* Execute the following command
+
+    atlas-mvn -f ../propertyset-storage-toolkit/pom.xml clean package install
       && atlas-mvn clean
       && atlas-integration-test --plugins "com.atlassian.plugins.studio.propertyset.storage:propertyset-storage-toolkit:1.0-SNAPSHOT"
       && atlas-debug --plugins "com.atlassian.plugins.studio.propertyset.storage:propertyset-storage-toolkit:1.0-SNAPSHOT"
+* Wait
 
-## Installation
+The command above will compile and install into the local repository propertyset-storage-toolkit plugin artifact,
+then it will test it and launch sample application.
+
+## Sample Application Tutorial
+
+If you succeed with the steps above - then you have proceed and open http://localhost:2990/jira/ link. You will notice new dropdown Menu
+Item - "PropertySet Toolkit". Menu items description:
+- Integration Test Results - link to servlet with integration test data (servlet executes test suite and provides the execution summary).
+- Manual - link to documentation (More to come)
+- Configurable Action Example - Sample [WebWork Plugin Module](http://confluence.atlassian.com/display/JIRA/Webwork+plugin+module) with confiration pesistence enabled.
+
+
+## Installation as separate plugin
 See [Managing Jira's Plug-ins ](http://confluence.atlassian.com/display/JIRA/Managing+JIRA's+Plugins) page for more details.
 
 ## Tradeoffs & Known Features
@@ -35,6 +62,5 @@ configuration data storage mostly._**
 
 
 ## How-To Recipes
-.. TDB .. Now we are cooking.
+.. TDB .. Now we are cooking, more to come.
 
-## Other stuff 

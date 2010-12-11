@@ -112,8 +112,11 @@ public class IntegrationTestServlet extends HttpServlet
                     "<head><title>PropertySet Toolkit Tets result</title></head>" +
                     "<body>" +
                     "" +
-                    "<h1><a href='https://github.com/leonardinius/propertyset-storage-toolkit'>propertyset-storage-toolkit</a> test " +
-                    "results</h1>" +
+                    "<h1>Integration tests results</h1>" +
+                    "<a href='javascript:history.back(1); return true;'>Back</a> &nbsp; " +
+                    "<a href='https://github.com/leonardinius/propertyset-storage-toolkit/blob/master/propertyset-storage-toolkit-sample/src/main/java/com/atlassian/plugins/studio/storage/examples/it/TestSuite.java'>Source code</a>" +
+                    "<br />" +
+                    "<br />" +
                     "<table>" +
                     "   <thead>" +
                     "       <tr><th>Status</th><th>Test</th><th>Error</th></tr>" +

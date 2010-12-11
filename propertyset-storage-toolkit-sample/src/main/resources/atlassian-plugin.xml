@@ -53,7 +53,7 @@
 
     <web-item key="documentation_link" name="Documentation Web Site" section="propertyset-toolkit-link/propertyset-toolkit-section"
               weight="10">
-        <label>Manual Documentation</label>
+        <label>Manual</label>
         <link linkId="documentation_link">https://github.com/leonardinius/propertyset-storage-toolkit/wiki/Manual</link>
     </web-item>
 
