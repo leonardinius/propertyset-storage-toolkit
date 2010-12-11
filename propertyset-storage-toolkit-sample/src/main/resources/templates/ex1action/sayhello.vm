@@ -1,0 +1,4 @@
+$textutils.htmlEncode(${helloText})$textutils.htmlEncode(${welcomeText}) (and this is adminOnly: ${adminOnly})
+
+<br/>
+<a href="${req.contextPath}/secure/admin/PropertySetConfigurableActionExample!default.jspa">Go Back.</a>

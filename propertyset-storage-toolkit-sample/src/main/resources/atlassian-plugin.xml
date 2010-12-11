@@ -60,7 +60,7 @@
     <web-item key="ex1_link" name="Example1: Configurable Action" section="propertyset-toolkit-link/propertyset-toolkit-section"
               weight="10">
         <label>Example 1: Configurable Action</label>
-        <link linkId="documentation_link">/admin/PropertySetConfigurableActionExample.jspa</link>
+        <link linkId="documentation_link">/secure/admin/PropertySetConfigurableActionExample!default.jspa</link>
     </web-item>
 
 

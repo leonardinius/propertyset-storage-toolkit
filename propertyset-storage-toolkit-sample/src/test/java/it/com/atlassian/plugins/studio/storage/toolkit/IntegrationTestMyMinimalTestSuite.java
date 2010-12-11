@@ -25,7 +25,7 @@ import static org.junit.matchers.JUnitMatchers.containsString;
 
 public class IntegrationTestMyMinimalTestSuite extends FuncTestCase
 {
-    public void testSomething()
+    public void testIntegrationTestsDoNotFail()
     {
         navigation.gotoPage("/plugins/servlet/propertyset-toolkit-storage/test.html");
 

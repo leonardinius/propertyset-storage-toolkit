@@ -94,7 +94,7 @@ public class PropertySetConfigurableActionExample extends JiraWebActionSupport
     }
 
 
-    public String doHello()
+    public String doSayHello()
     {
         loadConfig(getStorage());
         return "sayhello";
@@ -110,7 +110,7 @@ public class PropertySetConfigurableActionExample extends JiraWebActionSupport
     private void saveConfig(StorageFacade storage)
     {
         storage.setBoolean(ADMIN_ONLY, isAdminOnly());
-        storage.setText(HELLO_TEXT, getHelloText());
-        storage.setText(WELCOME_TEXT, getWelcomeText());
+        storage.setString(HELLO_TEXT, getHelloText());
+        storage.setString(WELCOME_TEXT, getWelcomeText());
     }
 }
