@@ -37,4 +37,48 @@
         <interface>com.atlassian.plugins.studio.storage.examples.ExampleManager</interface>
     </component>
 
+
+    <web-section key="propertyset-toolkit-section" name="Propertyset Toolkit Sample" location="propertyset-toolkit-link" weight="10"/>
+
+    <web-item key="propertyset-toolkit-link" name="Propertyset Toolkit Sample Main Section" section="system.top.navigation.bar" weight="47">
+        <label>Propertyset Toolkit</label>
+        <link linkId="propertyset-toolkit-link">https://github.com/leonardinius/propertyset-storage-toolkit</link>
+    </web-item>
+
+    <web-item key="onsite-integration-test-data" name="Company Web Site" section="propertyset-toolkit-link/propertyset-toolkit-section"
+              weight="10">
+        <label>Integration Test Results</label>
+        <link linkId="it_data">/plugins/servlet/propertyset-toolkit-storage/test.html</link>
+    </web-item>
+
+    <web-item key="documentation_link" name="Documentation Web Site" section="propertyset-toolkit-link/propertyset-toolkit-section"
+              weight="10">
+        <label>Documentation</label>
+        <link linkId="documentation_link">http://confluence.atlassian.com</link>
+    </web-item>
+
+    <web-item key="ex1_link" name="Example1: Configurable Action" section="propertyset-toolkit-link/propertyset-toolkit-section"
+              weight="10">
+        <label>Example 1: Configurable Action</label>
+        <link linkId="documentation_link">/admin/PropertySetConfigurableActionExample.jspa</link>
+    </web-item>
+
+
+    <servlet key="propertyset-storage-toolkit-test-servlet" name="Sample &amp; Integration Test data Servlet"
+             class="com.atlassian.plugins.studio.storage.examples.it.IntegrationTestServlet">
+        <description>The servlet used for both feature demonstration and Integration testing</description>
+        <url-pattern>/propertyset-toolkit-storage/test.html</url-pattern>
+    </servlet>
+
+    <webwork1 key="global-action-example" name="Configurable Action example" class="java.lang.Object">
+        <actions>
+            <action name="com.atlassian.plugins.studio.storage.examples.ex1action.PropertySetConfigurableActionExample"
+                    alias="PropertySetConfigurableActionExample">
+                <view name="input">/templates/ex1action/input.vm</view>
+                <view name="success">/templates/ex1action/input.vm</view>
+                <view name="sayhello">/templates/ex1action/sayhello.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
 </atlassian-plugin>
