@@ -48,8 +48,9 @@ then it will test it and launch sample application.
 
 ## Sample Application Tutorial
 
-If you succeed with the steps above - then you have proceed and open http://localhost:2990/jira/ link. You will notice new dropdown Menu
-Item - "PropertySet Toolkit". Menu items description:
+If you succeed with the steps above - then you have proceed and open http://localhost:2990/jira/ link. You will notice new dropdown Menu Item
+
+- "PropertySet Toolkit". Menu items description:
 - Integration Test Results - link to servlet with integration test data (servlet executes test suite and provides the execution summary).
 - Manual - link to documentation (More to come)
 - Configurable Action Example - Sample [WebWork Plugin Module](http://confluence.atlassian.com/display/JIRA/Webwork+plugin+module) with confiration pesistence enabled.
