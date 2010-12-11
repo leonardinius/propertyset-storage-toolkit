@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.examples.storage.toolkit.impl;
+package com.atlassian.plugins.studio.storage.toolkit.impl;
 
-import com.atlassian.plugins.studio.storage.examples.storage.toolkit.InstanceId;
-import com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageException;
-import com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageFacade;
+import com.atlassian.plugins.studio.storage.toolkit.InstanceId;
+import com.atlassian.plugins.studio.storage.toolkit.StorageException;
+import com.atlassian.plugins.studio.storage.toolkit.StorageFacade;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;

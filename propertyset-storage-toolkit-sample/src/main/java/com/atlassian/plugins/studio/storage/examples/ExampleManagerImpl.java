@@ -17,8 +17,8 @@
 
 package com.atlassian.plugins.studio.storage.examples;
 
-import com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageFacade;
-import com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageService;
+import com.atlassian.plugins.studio.storage.toolkit.StorageFacade;
+import com.atlassian.plugins.studio.storage.toolkit.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;

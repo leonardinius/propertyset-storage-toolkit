@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.examples.storage.toolkit.impl;
+package com.atlassian.plugins.studio.storage.toolkit.impl;
 
-import com.atlassian.plugins.studio.storage.examples.storage.toolkit.InstanceId;
-import com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageException;
+import com.atlassian.plugins.studio.storage.toolkit.InstanceId;
+import com.atlassian.plugins.studio.storage.toolkit.StorageException;
 import com.google.common.collect.ImmutableMap;
 import com.opensymphony.module.propertyset.PropertyException;
 import com.opensymphony.module.propertyset.PropertySet;
@@ -49,7 +49,7 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
      *
      * @param instanceId scope instanceId
      * @return loads delegate
-     * @throws com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageException
+     * @throws com.atlassian.plugins.studio.storage.toolkit.StorageException
      *
      */
     public PropertySet loadDelegate(InstanceId instanceId) throws StorageException {

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.examples.storage.toolkit;
+package com.atlassian.plugins.studio.storage.toolkit;
 
 import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.project.Project;

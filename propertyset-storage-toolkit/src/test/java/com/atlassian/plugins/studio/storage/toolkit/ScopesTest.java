@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.examples.storage.toolkit;
+package com.atlassian.plugins.studio.storage.toolkit;
 
 import com.atlassian.core.ofbiz.test.mock.MockGenericValue;
 import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.project.Project;
 import com.atlassian.jira.web.action.JiraWebActionSupport;
-import com.atlassian.plugins.studio.storage.examples.storage.toolkit.impl.AbstractDefaultScopeImpl;
+import com.atlassian.plugins.studio.storage.toolkit.impl.AbstractDefaultScopeImpl;
 import com.google.common.collect.ImmutableMap;
 import com.opensymphony.module.propertyset.PropertySet;
 import org.hamcrest.CoreMatchers;
@@ -91,14 +91,14 @@ public class ScopesTest {
     @Test
     public void testActionConfigurationInstance() throws Exception {
         InstanceId id = getId(Scopes.actionConfiguration(new MyAction()), new MyAction());
-        Assert.assertThat(id, isEq(3L, "FacadeStorageAction-com.atlassian.plugins.studio.storage.examples.storage.toolkit.ScopesTest$MyAction", "class-"));
+        Assert.assertThat(id, isEq(3L, "FacadeStorageAction-com.atlassian.plugins.studio.storage.toolkit.ScopesTest$MyAction", "class-"));
     }
 
 
     @Test
     public void testActionConfigurationKlazz() throws Exception {
         InstanceId id = getId(Scopes.actionConfiguration(MyAction.class), MyAction.class);
-        Assert.assertThat(id, isEq(3L, "FacadeStorageAction-com.atlassian.plugins.studio.storage.examples.storage.toolkit.ScopesTest$MyAction", "class-"));
+        Assert.assertThat(id, isEq(3L, "FacadeStorageAction-com.atlassian.plugins.studio.storage.toolkit.ScopesTest$MyAction", "class-"));
     }
 
     private Matcher<InstanceId> isEq(Long id, String name, String prefix) {

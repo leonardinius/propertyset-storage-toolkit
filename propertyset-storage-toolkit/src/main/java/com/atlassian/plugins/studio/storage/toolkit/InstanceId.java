@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.atlassian.plugins.studio.storage.examples.storage.toolkit;
+package com.atlassian.plugins.studio.storage.toolkit;
 
 import com.atlassian.gzipfilter.org.apache.commons.lang.builder.ToStringBuilder;
 import com.atlassian.gzipfilter.org.apache.commons.lang.builder.ToStringStyle;

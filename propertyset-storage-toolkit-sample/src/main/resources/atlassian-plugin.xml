@@ -28,7 +28,7 @@
 
     <component-import key="${project.groupId}.${project.artifactId}:property-storage-toolkit-api">
         <description>PropertySet storage API service.</description>
-        <interface>com.atlassian.plugins.studio.storage.examples.storage.toolkit.StorageService</interface>
+        <interface>com.atlassian.plugins.studio.storage.toolkit.StorageService</interface>
     </component-import>
 
 
