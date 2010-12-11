@@ -1,0 +1,105 @@
+<div style="background: #FFFFFF">
+    <table class="jiraform maxWidth">
+        <tr>
+            <td class="jiraformheader">
+                <h3 class="formtitle">PropertySet toolkit Example1 Input</h3>
+            </td>
+        </tr>
+        <tr>
+            <td class="jiraformbody">
+                This page is what the PropertySet toolkit Exampe1 action class shows for input
+            </td>
+        </tr>
+    </table>
+    <br>
+
+    <form id="ex1form" method="post" action="${req.contextPath}/admin/PropertySetConfigurableActionExample.jspa">
+
+        <table class="grid" border="0">
+
+            <tr>
+                <td align="fieldLabelArea">
+                    Admin only:&nbsp;
+                </td>
+
+                <td class="fieldValueArea">
+                    <input type="checkbox"
+                           id="adminOnly"
+                           name="adminOnly"
+                           value="${adminOnly}"
+                            />
+                    <br>
+                    <font size="1">An example of a boolean parameter.</font>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="fieldLabelArea">
+                    Admin only:&nbsp;
+                </td>
+
+                <td class="fieldValueArea">
+                    <input type="checkbox"
+                           id="helloText"
+                           name="helloText"
+                           value="$textutils.htmlEncode(${helloText})"
+                            />
+                    <br>
+                    <font size="1">An example of a boolean parameter.</font>
+                </td>
+            </tr>
+            <tr>
+                <td align="fieldLabelArea">
+                    Admin only:&nbsp;
+                </td>
+
+                <td class="fieldValueArea">
+                    <input type="checkbox"
+                           id="welcomeText"
+                           name="welcomeText"
+                           value="$textutils.htmlEncode(${welcomText})"
+                            />
+                    <br>
+                    <font size="1">An example of a boolean parameter.</font>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="fullyCentered jiraformfooter">
+                    <input type="submit" name="Submit" id="Submit" value="Next&nbsp;&gt;&gt;"
+                           accesskey="S"
+                           title="Press Ctrl+S to submit form"
+                           class="spaced"
+                            />
+                </td>
+                <td class="fullyCentered jiraformfooter">
+                    <input type="hidden" name="cancelUrl" value="${req.contextPath}/secure/Dashboard.jspa"/>
+                    <input type="submit" name="Cancel" id="Cancel" value="Cancel"
+                           accesskey="`"
+                           title="Press Alt+` to cancel form"
+                           class="spaced"
+                            />
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+
+## If an input view exists for an action, then the input view
+      ## rather than an error view is used
+
+    #if (${hasErrorMessages})
+    <table>
+        <tr>
+            <td>Error Messages</td>
+        </tr>
+        #foreach ($error in $action.getErrorMessages())
+            <tr>
+                <td>${error}</td>
+            </tr>
+        #end
+    <table>
+    #end
+
+</div>
