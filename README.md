@@ -20,8 +20,8 @@ Please inform me if you would try to modify it for earlier versions.
   1. Named configuration scope (Example: My Gadget1 Configuration)
   1. Action configuration scope (Example: your plugin may contain _Administration_ action,
 which may require to persist and access administrator input).
-  1. Project configuration scope (Example: you may associate configuration information with project instances)
-  1. Issue configuration scope (Example: you may associate configuration information with project instances)
+  1. Project configuration scope (Example: you may associate configuration information with project object)
+  1. Issue configuration scope (Example: you may associate configuration information with issue object)
 - The list of scopes is not limited and you may come-up with your own _Scope_
 
 ## Sample Code
