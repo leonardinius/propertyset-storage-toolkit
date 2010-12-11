@@ -99,10 +99,11 @@ As you may notice, the project code consists from two separate and completely va
 toolkit itself as well as simple samples application with bundled-integration test and WebWork configurable action in action.
 
 You may proceed as it follows:
-* Get the sources (if you are unfamiliar with Git or Github, help is [here](http://help.github.com/))
-* If you still don't hane Atlassian PDK installed - you probably are reading wrong README then. (it's [out there](http://confluence.atlassian.com/display/DEVNET/Developing+your+Plugin+using+the+Atlassian+Plugin+SDK).I used atlassian-plugin-sdk-3.2.3 at the moment of writing.
-* Launch the terminal and `cd` to propertyset-storage-toolkit-sample folder
-* Execute the following command
+
+- Get the sources (if you are unfamiliar with Git or Github, help is [here](http://help.github.com/))
+- If you still don't hane Atlassian PDK installed - you probably are reading wrong README then. (it's [out there](http://confluence.atlassian.com/display/DEVNET/Developing+your+Plugin+using+the+Atlassian+Plugin+SDK).I used atlassian-plugin-sdk-3.2.3 at the moment of writing.
+- Launch the terminal and `cd` to propertyset-storage-toolkit-sample folder
+- Execute the following command
 
     atlas-mvn -f ../propertyset-storage-toolkit/pom.xml clean package install \
       && atlas-mvn clean                                                      \
