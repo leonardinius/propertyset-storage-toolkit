@@ -6,10 +6,10 @@ The purpose and the intent of this project is to provide You as Plug-in develope
 
 As the project name states - it uses PropertySet as underlying storage implementation. It might not be the best choice for every plug-in out there in the wild world, still it's rather usable for most use cases I had so far.
 
-## Compatability
+## Compatibility
 The plugin is developed as JIRA Atlassian Plugin v2. This limits it's usage to JIRA > 4x.
 On the other hand - it does not have any dependency one new stuff and should work correctly one JIRA 3xml as well (needs adjustments).
-Please informe me if you would try to modify it for earlier versions.
+Please inform me if you would try to modify it for earlier versions.
 
 ## Feature Overview
 - Database persistence using [PropertySet](http://www.opensymphony.com/propertyset/) for underlying data storage
@@ -101,7 +101,7 @@ toolkit itself as well as simple samples application with bundled-integration te
 You may proceed as it follows:
 
 - Get the sources (if you are unfamiliar with Git or Github, help is [here](http://help.github.com/))
-- If you still don't hane Atlassian PDK installed - you probably are reading wrong README then. (it's [out there](http://confluence.atlassian.com/display/DEVNET/Developing+your+Plugin+using+the+Atlassian+Plugin+SDK).I used atlassian-plugin-sdk-3.2.3 at the moment of writing.
+- If you still don't have Atlassian PDK installed - you probably are reading wrong README then. (it's [out there](http://confluence.atlassian.com/display/DEVNET/Developing+your+Plugin+using+the+Atlassian+Plugin+SDK).I used atlassian-plugin-sdk-3.2.3 at the moment of writing.
 - Launch the terminal and `cd` to propertyset-storage-toolkit-sample folder
 - Execute the following command
 
@@ -122,14 +122,11 @@ If you succeed with the steps above - then you have proceed and open http://loca
 
 - Integration Test Results - link to servlet with integration test data (servlet executes test suite and provides the execution summary).
 - Manual - link to documentation (More to come)
-- Configurable Action Example - Sample [WebWork Plugin Module](http://confluence.atlassian.com/display/JIRA/Webwork+plugin+module) with confiration pesistence enabled.
+- Configurable Action Example - Sample [WebWork Plugin Module](http://confluence.atlassian.com/display/JIRA/Webwork+plugin+module) with configuration persistence enabled.
 
 
 ## Installation as separate plugin
 See [Managing Jira's Plug-ins ](http://confluence.atlassian.com/display/JIRA/Managing+JIRA's+Plugins) page for more details.
-
-## Tradeoffs & Known Features
-- Has not investigated performance problems possible in cases the approach will be over-used. **_The recommendation is to use for  configuration data storage mostly._**
 
 
 ## How-To Recipes
