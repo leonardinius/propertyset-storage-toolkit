@@ -11,10 +11,10 @@ As the project name states - it uses PropertySet as underlying storage implement
 - Has no additional JIRA dependencies and provides enhanced PpropertySet API sub-set
 - Provides a rich set of out-of box list of _Scope_ objects. (_Scope_ defines the sandbox of the PropertySet storage instance). At
  the moment following configuration options are supported
--- Named configuration (**Example:** My Gadget1 Configuration)
--- Action configuration (**Example:** Your Plugin may contain _Administration_ action,
+  - Named configuration (**Example:** My Gadget1 Configuration)
+  - Action configuration (**Example:** Your Plugin may contain _Administration_ action,
 which may require to persist and access administrator input).
---
+  - dsd
 tbd
 
 ## See, It's Alive - Sample Application Demo
