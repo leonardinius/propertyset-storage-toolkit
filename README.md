@@ -105,13 +105,13 @@ You may proceed as it follows:
 - Launch the terminal and `cd` to propertyset-storage-toolkit-sample folder
 - Execute the following command
 
-        atlas-mvn -f ../propertyset-storage-toolkit/pom.xml clean package install \
-          && atlas-mvn clean                                                      \
-          && atlas-integration-test --plugins \
-             "com.atlassian.plugins.studio.propertyset.storage:propertyset-storage-toolkit:1.0-SNAPSHOT" \
-          && atlas-debug --plugins \
-             "com.atlassian.plugins.studio.propertyset.storage:propertyset-storage-toolkit:1.0-SNAPSHOT"
-* Wait
+      atlas-mvn -f ../propertyset-storage-toolkit/pom.xml clean package install \
+        && atlas-mvn clean                                                      \
+        && atlas-integration-test --plugins \
+           "com.atlassian.plugins.studio.propertyset.storage:propertyset-storage-toolkit:1.0-SNAPSHOT" \
+        && atlas-debug --plugins \
+           "com.atlassian.plugins.studio.propertyset.storage:propertyset-storage-toolkit:1.0-SNAPSHOT"
+- Wait
 
 The command above will compile and install into the local repository propertyset-storage-toolkit plugin artifact,
 then it will test it and launch sample application.
