@@ -27,7 +27,7 @@ public class IntegrationTestMyMinimalTestSuite extends FuncTestCase
 {
     public void testIntegrationTestsDoNotFail()
     {
-        navigation.gotoPage("/plugins/servlet/propertyset-toolkit-storage/test.html");
+        navigation.gotoPage("/plugins/servlet/propertyset-toolkit-storage-sample/test.html");
 
         assertThat("Should not contain Failed test marker", tester.getDialog().getResponseText(), not(containsString("<tr valign='top' style='background-color : red;'>")));
     }

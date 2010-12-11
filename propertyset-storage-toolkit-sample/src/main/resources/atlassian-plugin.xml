@@ -48,18 +48,18 @@
     <web-item key="onsite-integration-test-data" name="Company Web Site" section="propertyset-toolkit-link/propertyset-toolkit-section"
               weight="10">
         <label>Integration Test Results</label>
-        <link linkId="it_data">/plugins/servlet/propertyset-toolkit-storage/test.html</link>
+        <link linkId="it_data">/plugins/servlet/propertyset-toolkit-storage-sample/test.html</link>
     </web-item>
 
     <web-item key="documentation_link" name="Documentation Web Site" section="propertyset-toolkit-link/propertyset-toolkit-section"
               weight="10">
-        <label>Documentation</label>
-        <link linkId="documentation_link">http://confluence.atlassian.com</link>
+        <label>Manual Documentation</label>
+        <link linkId="documentation_link">https://github.com/leonardinius/propertyset-storage-toolkit/wiki/Manual</link>
     </web-item>
 
-    <web-item key="ex1_link" name="Example1: Configurable Action" section="propertyset-toolkit-link/propertyset-toolkit-section"
+    <web-item key="ex1_link" name="Configurable Action Example" section="propertyset-toolkit-link/propertyset-toolkit-section"
               weight="10">
-        <label>Example 1: Configurable Action</label>
+        <label>Configurable Action Example</label>
         <link linkId="documentation_link">/secure/admin/PropertySetConfigurableActionExample!default.jspa</link>
     </web-item>
 
@@ -67,7 +67,7 @@
     <servlet key="propertyset-storage-toolkit-test-servlet" name="Sample &amp; Integration Test data Servlet"
              class="com.atlassian.plugins.studio.storage.examples.it.IntegrationTestServlet">
         <description>The servlet used for both feature demonstration and Integration testing</description>
-        <url-pattern>/propertyset-toolkit-storage/test.html</url-pattern>
+        <url-pattern>/propertyset-toolkit-storage-sample/test.html</url-pattern>
     </servlet>
 
     <webwork1 key="global-action-example" name="Configurable Action example" class="java.lang.Object">
