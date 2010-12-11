@@ -101,7 +101,7 @@ toolkit itself as well as simple samples application with bundled-integration te
 You may proceed as it follows:
 
 - Get the sources (if you are unfamiliar with Git or Github, help is [here](http://help.github.com/))
-- If you still don't have Atlassian PDK installed - you probably are reading wrong README then. (it's [out there](http://confluence.atlassian.com/display/DEVNET/Developing+your+Plugin+using+the+Atlassian+Plugin+SDK)).I used atlassian-plugin-sdk-3.2.3 at the moment of writing.
+- If you still don't have Atlassian PDK installed - you probably are reading wrong README then. (it's [out there](http://confluence.atlassian.com/display/DEVNET/Developing+your+Plugin+using+the+Atlassian+Plugin+SDK)). I used atlassian-plugin-sdk-3.2.3 at the moment of writing.
 - Launch the terminal and `cd` to propertyset-storage-toolkit-sample folder
 - Execute the following command
 
