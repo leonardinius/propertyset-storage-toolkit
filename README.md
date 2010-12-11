@@ -8,7 +8,7 @@ As the project name states - it uses PropertySet as underlying storage implement
 
 ## Compatibility
 The plugin is developed as JIRA Atlassian Plugin v2. This limits it's usage to JIRA > 4x.
-On the other hand - it does not have any dependency one new stuff and should work correctly one JIRA 3xml as well (needs adjustments).
+On the other hand - it does not have any dependency one new stuff and should work correctly in JIRA 3xml as well (needs adjustments).
 Please inform me if you would try to modify it for earlier versions.
 
 ## Feature Overview
