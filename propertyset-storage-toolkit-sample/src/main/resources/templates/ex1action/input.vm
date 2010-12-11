@@ -100,6 +100,8 @@
     <table>
     #end
 
+    <br/>
+    <br/>
     <h6>
         <a href="https://github.com/leonardinius/propertyset-storage-toolkit/blob/master/propertyset-storage-toolkit-sample/src/main/java/com/atlassian/plugins/studio/storage/examples/ex1action/PropertySetConfigurableActionExample.java">Source
             code</a></h6>
