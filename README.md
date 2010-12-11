@@ -78,8 +78,8 @@ which may require to persist and access administrator input).
         StorageFacade facade = storageService.constantNameStorage(name);
         facade.remove("object");
 
-        MySerializable object = new MySerializable(10L, "data data", Maps.<String, String>newHashMap(ImmutableMap.of("1", "data1", "sdsd",
-                "data2")));
+        MySerializable object = new MySerializable(10L, "data data", 
+            Maps.<String, String>newHashMap(ImmutableMap.of("1", "data1", "sdsd", "data2")));
         stateTrue("First object access should be null", facade.getObject("object") == null);
         facade.setObject("object", object);
         stateTrue("object key should exist now", facade.exists("object"));
