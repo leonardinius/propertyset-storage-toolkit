@@ -57,7 +57,7 @@ which may require to persist and access administrator input).
      }
 
 #### 2. DTO Object data persistence
-
+    // class I want to save as My configuration data holder
     private static class MySerializable implements Serializable
     {
         private String text;
