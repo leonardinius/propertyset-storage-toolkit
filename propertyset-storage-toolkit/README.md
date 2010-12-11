@@ -1,3 +1,3 @@
-# This is sample application
+This is PropertySet storage toolkit to make configuration data storage in Jira easy
 
-.. TBD ...
+Please se parent ../README.md for more information
