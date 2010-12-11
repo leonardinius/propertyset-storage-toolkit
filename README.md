@@ -128,8 +128,7 @@ If you succeed with the steps above - then you have proceed and open http://loca
 See [Managing Jira's Plug-ins ](http://confluence.atlassian.com/display/JIRA/Managing+JIRA's+Plugins) page for more details.
 
 ## Tradeoffs & Known Features
-- Has not investigated performance problems possible in cases the approach will be over-used. **_The recommendation is use for
-configuration data storage mostly._**
+- Has not investigated performance problems possible in cases the approach will be over-used. **_The recommendation is to use for  configuration data storage mostly._**
 
 
 ## How-To Recipes
