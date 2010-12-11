@@ -141,6 +141,7 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
         }
     }
 
+    @SuppressWarnings({"WeakerAccess"})
     protected XStream makeXstream() {
         return new XStream();
     }

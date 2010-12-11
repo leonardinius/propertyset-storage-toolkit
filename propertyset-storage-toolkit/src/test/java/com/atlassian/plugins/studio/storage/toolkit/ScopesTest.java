@@ -26,9 +26,7 @@ import com.google.common.collect.ImmutableMap;
 import com.opensymphony.module.propertyset.PropertySet;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
@@ -43,16 +41,6 @@ import static org.mockito.Mockito.when;
 public class ScopesTest {
     @Mock
     PropertySet propertySet;
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
 
     @Test
     public void testProjectScope() throws Exception {

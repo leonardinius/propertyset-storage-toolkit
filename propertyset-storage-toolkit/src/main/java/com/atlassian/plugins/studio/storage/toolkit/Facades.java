@@ -31,6 +31,7 @@ public class Facades {
     private Facades() {
     }
 
+    @SuppressWarnings({"WeakerAccess"})
     public static <U> StorageFacade storage(Scope<U> scope, U context) throws StorageException {
         return scope.load(context);
     }

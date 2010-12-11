@@ -76,7 +76,7 @@ public class Scopes {
 
         public <U> Builder<U> as(final Function<U, T> transformer) {
             Function<U, InstanceId> newIdProvider = new Function<U, InstanceId>() {
-                Function<T, InstanceId> oldIdProvider = Builder.this.instanceIdProvider;
+                final Function<T, InstanceId> oldIdProvider = Builder.this.instanceIdProvider;
 
                 public InstanceId apply(@Nullable U from) {
                     return oldIdProvider.apply(transformer.apply(from));
@@ -179,7 +179,7 @@ public class Scopes {
                 .build();
     }
 
-    public static class NoOpFun<F, T> implements Function<F, T> {
+    private static class NoOpFun<F, T> implements Function<F, T> {
 
         public T apply(@Nullable F from) {
             return null;

@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
-import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
@@ -53,7 +53,7 @@ public class IntegrationTestServlet extends HttpServlet {
         try {
             TestSuite suite = new TestSuite();
 
-            doExec(res.getWriter(), suite, getTests(suite, ToolkitTest.class));
+            doExec(res.getWriter(), suite, getTests(suite));
 
         } finally {
             res.getWriter().close();
@@ -124,6 +124,7 @@ public class IntegrationTestServlet extends HttpServlet {
         }
     }
 
+    @SuppressWarnings({"ConstantConditions"})
     private void doExec(Writer writer, Object instance, Method[] tests) throws IOException {
         Reporter reporter = new Reporter(writer);
 
@@ -135,24 +136,15 @@ public class IntegrationTestServlet extends HttpServlet {
 
         try {
             for (Method test : tests) {
-                String name = Joiner.on(' ')
-                        .skipNulls()
-                        .join(
-                                Iterables.transform(Arrays.asList(StringUtils.splitByCharacterTypeCamelCase(test.getName())), new Function<String, String>() {
-                                    @Override
-                                    public String apply(@Nullable String from) {
-                                        return StringUtils.capitalize(from);
-                                    }
-                                })
-                        );
+                String name = getTestName(test);
 
                 Throwable throwable = null;
                 try {
                     test.invoke(instance);
                     success++;
-                } catch (Throwable e) {
-                    logger.error("Test " + name + " failure: " + e.getMessage(), e);
-                    throwable = e;
+                } catch (Exception e) {
+                    throwable = (e instanceof InvocationTargetException) ? ((InvocationTargetException) (e)).getTargetException() : e;
+                    logger.error("Test " + name + " failure: " + throwable.getMessage(), e);
                 }
 
                 reporter.reportTest(counter++, name, throwable);
@@ -160,21 +152,35 @@ public class IntegrationTestServlet extends HttpServlet {
         } finally {
             reporter.end();
             reporter.stats(success, counter - 1);
+            //noinspection EmptyCatchBlock
             try {
                 reporter.flush();
-                //ignore
             } catch (IOException e) {
             }
         }
     }
 
+    private String getTestName(Method test) {
+        return Joiner.on(' ')
+                .skipNulls()
+                .join(
+                        Iterables.transform(Arrays.asList(StringUtils.splitByCharacterTypeCamelCase(test.getName())), new Function<String, String>() {
+                            @Override
+                            public String apply(@Nullable String from) {
+                                return StringUtils.capitalize(from);
+                            }
+                        })
+                );
+    }
 
-    private Method[] getTests(Object instance, final Class<? extends Annotation> testMarker) {
+
+    private Method[] getTests(Object instance) {
         return Iterables.toArray(Iterables.<Method>filter(Arrays.<Method>asList(instance.getClass().getDeclaredMethods()),
                 new Predicate<Method>() {
                     @Override
                     public boolean apply(@Nullable Method input) {
-                        return input.isAnnotationPresent(testMarker);
+                        ToolkitTest marker = input.getAnnotation(ToolkitTest.class);
+                        return marker != null && !marker.ignore();
                     }
                 }), Method.class);
     }

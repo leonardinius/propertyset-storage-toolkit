@@ -32,7 +32,7 @@
     </organization>
 
     <name>propertyset-storage-toolkit</name>
-    <description>This is the project to easify propertyset storage and management in the Atlassian project line
+    <description>This is the project to make irt easier to use propertysets for data storage and management in the Atlassian product line
         family.
     </description>
     <packaging>atlassian-plugin</packaging>

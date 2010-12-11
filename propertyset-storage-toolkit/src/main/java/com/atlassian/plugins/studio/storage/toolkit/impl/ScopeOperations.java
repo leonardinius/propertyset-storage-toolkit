@@ -35,7 +35,7 @@ public interface ScopeOperations {
      * @param descriptor scope descriptor
      * @return delegate loaded
      * @throws com.atlassian.plugins.studio.storage.toolkit.StorageException
-     *
+     *          loads storage object
      */
     PropertySet loadDelegate(InstanceId descriptor) throws StorageException;
 
