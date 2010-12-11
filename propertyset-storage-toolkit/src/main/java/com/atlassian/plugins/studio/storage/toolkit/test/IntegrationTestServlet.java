@@ -40,12 +40,14 @@ import java.util.Arrays;
 import static java.text.MessageFormat.format;
 import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
-public class IntegrationTestServlet extends HttpServlet {
+public class IntegrationTestServlet extends HttpServlet
+{
 
     private static final Logger logger = LoggerFactory.getLogger(IntegrationTestServlet.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
+    {
 
         res.setCharacterEncoding("UTF-8");
         res.setContentType("text/html");
@@ -60,35 +62,43 @@ public class IntegrationTestServlet extends HttpServlet {
         }
     }
 
-    private enum Status {
-        Ok {
-            @Override
-            public String render(int counter, String name, String stackTrace) {
-                return format("<tr valign=''top'' style=''background-color : green;''><td>{3}. {0}</td><td>{1}</td><td>{2}</td></tr>",
-                        name(),
-                        name,
-                        stackTrace, counter);
-            }
-        },
-        Error {
-            @Override
-            public String render(int counter, String name, String stackTrace) {
-                return format("<tr valign=''top''style=''background-color : red;''><td>{3}. {0}</td><td>{1}</td><td>{2}</td></tr>", name(), name, stackTrace, counter);
-            }
-        };
+    private enum Status
+    {
+        Ok
+                {
+                    @Override
+                    public String render(int counter, String name, String stackTrace)
+                    {
+                        return format("<tr valign=''top'' style=''background-color : green;''><td>{3}. {0}</td><td>{1}</td><td>{2}</td></tr>",
+                                name(),
+                                name,
+                                stackTrace, counter);
+                    }
+                },
+        Error
+                {
+                    @Override
+                    public String render(int counter, String name, String stackTrace)
+                    {
+                        return format("<tr valign=''top'' style=''background-color : red;''><td>{3}. {0}</td><td>{1}</td><td>{2}</td></tr>", name(), name, stackTrace, counter);
+                    }
+                };
 
         public abstract String render(int counter, String name, String stackTrace);
     }
 
-    private static class Reporter {
+    private static class Reporter
+    {
 
         private final Writer writer;
 
-        public Reporter(Writer writer) {
+        public Reporter(Writer writer)
+        {
             this.writer = writer;
         }
 
-        public void start() throws IOException {
+        public void start() throws IOException
+        {
             writer.write("" +
                     "<html>" +
                     "<head><title>PropertySet Toolkit Tets result</title></head>" +
@@ -103,29 +113,34 @@ public class IntegrationTestServlet extends HttpServlet {
                     "<tbody>");
         }
 
-        public void reportTest(int counter, String name, Throwable t) throws IOException {
+        public void reportTest(int counter, String name, Throwable t) throws IOException
+        {
             Status status = t == null ? Status.Ok : Status.Error;
             String stackTrace = t != null ? escapeHtml(ExceptionUtils.getFullStackTrace(t)) : "";
 
             writer.write(status.render(counter, name, stackTrace));
         }
 
-        public void end() throws IOException {
+        public void end() throws IOException
+        {
             writer.write("</tbody></table>");
         }
 
 
-        public void stats(int success, int total) throws IOException {
+        public void stats(int success, int total) throws IOException
+        {
             writer.write(format("<b>Stats</b> Success: {0}, Failures: {1}, Total: {2}", success, total - success, total));
         }
 
-        public void flush() throws IOException {
+        public void flush() throws IOException
+        {
             writer.write("</body></html>");
         }
     }
 
     @SuppressWarnings({"ConstantConditions"})
-    private void doExec(Writer writer, Object instance, Method[] tests) throws IOException {
+    private void doExec(Writer writer, Object instance, Method[] tests) throws IOException
+    {
         Reporter reporter = new Reporter(writer);
 
 
@@ -160,13 +175,16 @@ public class IntegrationTestServlet extends HttpServlet {
         }
     }
 
-    private String getTestName(Method test) {
+    private String getTestName(Method test)
+    {
         return Joiner.on(' ')
                 .skipNulls()
                 .join(
-                        Iterables.transform(Arrays.asList(StringUtils.splitByCharacterTypeCamelCase(test.getName())), new Function<String, String>() {
+                        Iterables.transform(Arrays.asList(StringUtils.splitByCharacterTypeCamelCase(test.getName())), new Function<String, String>()
+                        {
                             @Override
-                            public String apply(@Nullable String from) {
+                            public String apply(@Nullable String from)
+                            {
                                 return StringUtils.capitalize(from);
                             }
                         })
@@ -174,11 +192,14 @@ public class IntegrationTestServlet extends HttpServlet {
     }
 
 
-    private Method[] getTests(Object instance) {
+    private Method[] getTests(Object instance)
+    {
         return Iterables.toArray(Iterables.<Method>filter(Arrays.<Method>asList(instance.getClass().getDeclaredMethods()),
-                new Predicate<Method>() {
+                new Predicate<Method>()
+                {
                     @Override
-                    public boolean apply(@Nullable Method input) {
+                    public boolean apply(@Nullable Method input)
+                    {
                         ToolkitTest marker = input.getAnnotation(ToolkitTest.class);
                         return marker != null && !marker.ignore();
                     }

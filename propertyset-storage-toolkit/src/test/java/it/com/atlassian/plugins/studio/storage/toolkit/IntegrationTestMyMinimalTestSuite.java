@@ -15,13 +15,20 @@
  * limitations under the License.
  */
 
-package it;
+package it.com.atlassian.plugins.studio.storage.toolkit;
 
-import junit.framework.TestCase;
+import com.atlassian.jira.functest.framework.FuncTestCase;
 
-public class IntegrationTestMyPlugin extends TestCase
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.containsString;
+
+public class IntegrationTestMyMinimalTestSuite extends FuncTestCase
 {
     public void testSomething()
     {
+        navigation.gotoPage("/plugins/servlet/propertyset-toolkit-storage/test.html");
+
+        assertThat("Should not contain Failed test marker", tester.getDialog().getResponseText(), not(containsString("<tr valign='top' style='background-color : red;'>")));
     }
 }
