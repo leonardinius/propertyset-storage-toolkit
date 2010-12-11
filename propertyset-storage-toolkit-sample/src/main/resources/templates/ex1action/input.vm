@@ -1,3 +1,4 @@
+#* @vtlvariable name="adminOnly" type="boolean" *#
 #* @vtlvariable name="welcomeText" type="java.lang.String" *#
 #* @vtlvariable name="helloText" type="java.lang.String" *#
 
@@ -24,8 +25,8 @@
                     <input type="checkbox"
                            id="adminOnly"
                            name="adminOnly"
-                           #if($adminOnly)checked="checked"#end
-                            />
+                           value="true"
+                           #if($adminOnly != false)checked="checked"#end/>
                     <br>
                     <font size="1">An example of a boolean parameter.</font>
                 </td>
