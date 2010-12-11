@@ -24,6 +24,138 @@ which may require to persist and access administrator input).
   1. Issue configuration scope (Example: you may associate configuration information with project instances)
 - The list of scopes is not limited and you may come-up with your own _Scope_
 
+## Sample Code
+
+#### 1. Action persistence in action
+
+     private final StorageService storageService; // IoC by framework via Constructor Dependency Injection
+     ...
+
+     // data fields
+     private boolean adminOnly;
+     private String helloText;
+     private String welcomeText;
+
+     private StorageFacade getStorage()
+     {
+         return storageService.actionStorage(this);
+     }
+
+     @Override
+     public String doDefault() throws Exception
+     {
+         loadConfig(getStorage());
+         return super.doDefault();
+     }
+
+     @Override
+     protected String doExecute() throws Exception
+     {
+         saveConfig(getStorage());
+         return super.doExecute();
+     }
+
+     private void loadConfig(StorageFacade storage)
+     {
+         setAdminOnly(storage.getBoolean(ADMIN_ONLY));
+         setHelloText(StringUtils.defaultString(storage.getString(HELLO_TEXT), "Hello, "));
+         setWelcomeText(StringUtils.defaultString(storage.getString(WELCOME_TEXT), "World"));
+     }
+
+     private void saveConfig(StorageFacade storage)
+     {
+         storage.setBoolean(ADMIN_ONLY, isAdminOnly());
+         storage.setString(HELLO_TEXT, getHelloText());
+         storage.setString(WELCOME_TEXT, getWelcomeText());
+     }
+
+#### 2. DTO Object data persistence
+
+    private static class MySerializable implements Serializable
+    {
+        private String text;
+        private Long number;
+        private Map<String, String> mapping;
+
+        public MySerializable(long number, String text, Map<String, String> mapping)
+        {
+            this.number = number;
+            this.mapping = mapping;
+            this.text = text;
+        }
+
+        public String getText()
+        {
+            return text;
+        }
+
+        public void setText(String text)
+        {
+            this.text = text;
+        }
+
+        public Long getNumber()
+        {
+            return number;
+        }
+
+        public void setNumber(Long number)
+        {
+            this.number = number;
+        }
+
+        public Map<String, String> getMapping()
+        {
+            return mapping;
+        }
+
+        public void setMapping(Map<String, String> mapping)
+        {
+            this.mapping = mapping;
+        }
+
+        @Override
+        public int hashCode()
+        {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+
+        @Override
+        public boolean equals(Object o)
+        {
+            return EqualsBuilder.reflectionEquals(this, o);
+        }
+
+        @Override
+        public String toString()
+        {
+            return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+        }
+    }
+
+
+    @ToolkitTest
+    protected void constantScopeSaveDeleteForObject() throws Exception
+    {
+        String name = getClass().getName() + "-saveDeleteCycle";
+        StorageFacade facade = storageService.constantNameStorage(name);
+        facade.remove("object");
+
+        MySerializable object = new MySerializable(10L, "data data", Maps.<String, String>newHashMap(ImmutableMap.of("1", "data1", "sdsd",
+                "data2")));
+        stateTrue("First object access should be null", facade.getObject("object") == null);
+        facade.setObject("object", object);
+        stateTrue("object key should exist now", facade.exists("object"));
+        stateTrue("" + object + "=" + facade.getObject("object"), facade.getObject("object").equals(object));
+        facade.setObject("object", null);
+        not("object key should NOT exist now", facade.exists("object"));
+
+        facade.setObject("object", object);
+        stateTrue("long key should exist now", facade.exists("object"));
+        stateTrue("delete object should work", facade.remove("object"));
+        not("long key should NOT exist now", facade.exists("object"));
+    }
+
 ## How do I get started?
 
 As you may notice, the project code consists from two separate and completely valid Atlassian JIRA plugins. It contains the persistence
