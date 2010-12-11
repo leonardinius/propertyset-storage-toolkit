@@ -35,26 +35,30 @@ import java.util.*;
  * Date: 12/9/10
  * Time: 1:32 AM
  */
-public class DefaultStorageFacadeImpl implements StorageFacade {
+public class DefaultStorageFacadeImpl implements StorageFacade
+{
     private final InstanceId instanceId;
     private final ScopeOperations bridge;
     private final PropertySet delegate;
 
-    public DefaultStorageFacadeImpl(InstanceId instanceId, ScopeOperations bridge, PropertySet delegate) {
+    public DefaultStorageFacadeImpl(InstanceId instanceId, ScopeOperations bridge, PropertySet delegate)
+    {
         this.instanceId = instanceId;
         this.bridge = bridge;
         this.delegate = delegate;
     }
 
 
-    private String getKey(String key) {
+    private String getKey(String key)
+    {
         return new StringBuilder()
                 .append(StringUtils.defaultIfEmpty(instanceId.getKeyPrefix(), ""))
                 .append(key).toString();
     }
 
 
-    public void setBoolean(String key, boolean value) throws StorageException {
+    public void setBoolean(String key, boolean value) throws StorageException
+    {
         try {
             delegate.setBoolean(getKey(key), value);
         } catch (PropertyException e) {
@@ -62,7 +66,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public boolean getBoolean(String key) throws StorageException {
+    public boolean getBoolean(String key) throws StorageException
+    {
         try {
             return delegate.getBoolean(getKey(key));
         } catch (PropertyException e) {
@@ -70,7 +75,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public void setData(String key, byte[] bytes) throws StorageException {
+    public void setData(String key, byte[] bytes) throws StorageException
+    {
         try {
             delegate.setData(getKey(key), bytes);
         } catch (PropertyException e) {
@@ -78,7 +84,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public byte[] getData(String key) throws StorageException {
+    public byte[] getData(String key) throws StorageException
+    {
         try {
             return delegate.getData(getKey(key));
         } catch (PropertyException e) {
@@ -86,7 +93,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public void setDate(String key, Date date) throws StorageException {
+    public void setDate(String key, Date date) throws StorageException
+    {
         try {
             delegate.setDate(getKey(key), date);
         } catch (PropertyException e) {
@@ -94,7 +102,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public Date getDate(String key) throws StorageException {
+    public Date getDate(String key) throws StorageException
+    {
         try {
             return delegate.getDate(getKey(key));
         } catch (PropertyException e) {
@@ -102,7 +111,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public void setDouble(String key, BigDecimal value) throws StorageException {
+    public void setDouble(String key, BigDecimal value) throws StorageException
+    {
         try {
             String entityKey = getKey(key);
             if (value != null) {
@@ -115,7 +125,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public BigDecimal getDouble(String key) throws StorageException {
+    public BigDecimal getDouble(String key) throws StorageException
+    {
         try {
             String value = delegate.getString(getKey(key));
 
@@ -130,26 +141,32 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
     }
 
     @SuppressWarnings({"unchecked"})
-    public Collection<String> getKeys() throws StorageException {
+    public Collection<String> getKeys() throws StorageException
+    {
         return cleanKeys(delegate.getKeys());
     }
 
-    private Collection<String> cleanKeys(Collection<String> keys) {
+    private Collection<String> cleanKeys(Collection<String> keys)
+    {
         if (keys == null) return keys;
 
-        return ImmutableList.copyOf(Iterables.transform(keys, new Function<String, String>() {
-            public String apply(String from) {
+        return ImmutableList.copyOf(Iterables.transform(keys, new Function<String, String>()
+        {
+            public String apply(String from)
+            {
                 return StringUtils.removeStart(from, instanceId.getKeyPrefix());
             }
         }));
     }
 
     @SuppressWarnings({"unchecked"})
-    public Collection<String> getKeys(String keyPrefix) throws StorageException {
+    public Collection<String> getKeys(String keyPrefix) throws StorageException
+    {
         return cleanKeys(delegate.getKeys(keyPrefix));
     }
 
-    public void setLong(String key, Long value) throws StorageException {
+    public void setLong(String key, Long value) throws StorageException
+    {
         try {
             String entityKey = getKey(key);
             if (value != null) {
@@ -162,7 +179,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public Long getLong(String key) throws StorageException {
+    public Long getLong(String key) throws StorageException
+    {
         try {
             String entryKey = getKey(key);
             if (delegate.exists(entryKey)) {
@@ -175,7 +193,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public void setObject(String key, Object objectValue) throws StorageException {
+    public void setObject(String key, Object objectValue) throws StorageException
+    {
         try {
 
             String entryKey = getKey(key);
@@ -190,7 +209,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public Object getObject(String key) throws StorageException {
+    public Object getObject(String key) throws StorageException
+    {
         try {
 
             String text = delegate.getText(getKey(key));
@@ -207,7 +227,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public void setProperties(String key, Properties properties) throws StorageException {
+    public void setProperties(String key, Properties properties) throws StorageException
+    {
         try {
 
             String entryKey = getKey(key);
@@ -223,7 +244,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public Properties getProperties(String key) throws StorageException {
+    public Properties getProperties(String key) throws StorageException
+    {
         try {
 
             String text = delegate.getText(getKey(key));
@@ -247,7 +269,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public void setString(String key, String string) throws StorageException {
+    public void setString(String key, String string) throws StorageException
+    {
         try {
             delegate.setString(getKey(key), string);
         } catch (PropertyException e) {
@@ -255,7 +278,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public String getString(String key) throws StorageException {
+    public String getString(String key) throws StorageException
+    {
         try {
             return delegate.getString(getKey(key));
         } catch (PropertyException e) {
@@ -263,7 +287,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public void setText(String key, String text) throws StorageException {
+    public void setText(String key, String text) throws StorageException
+    {
         try {
             delegate.setText(getKey(key), text);
         } catch (PropertyException e) {
@@ -271,7 +296,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public String getText(String key) throws StorageException {
+    public String getText(String key) throws StorageException
+    {
         try {
             return delegate.getText(getKey(key));
         } catch (PropertyException e) {
@@ -279,7 +305,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public boolean exists(String key) throws StorageException {
+    public boolean exists(String key) throws StorageException
+    {
         try {
             return delegate.exists(getKey(key));
         } catch (PropertyException e) {
@@ -287,7 +314,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public boolean remove(String key) throws StorageException {
+    public boolean remove(String key) throws StorageException
+    {
         try {
             String entryKey = getKey(key);
             if (delegate.exists(entryKey)) {
@@ -300,7 +328,8 @@ public class DefaultStorageFacadeImpl implements StorageFacade {
         }
     }
 
-    public void removeAll() throws StorageException {
+    public void removeAll() throws StorageException
+    {
         bridge.remove(delegate);
     }
 }

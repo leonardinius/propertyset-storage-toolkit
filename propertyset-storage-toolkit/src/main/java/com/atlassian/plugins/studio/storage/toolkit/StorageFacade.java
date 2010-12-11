@@ -30,7 +30,8 @@ import java.util.Properties;
  * Date: 12/8/10
  * Time: 2:36 AM
  */
-public interface StorageFacade {
+public interface StorageFacade
+{
 
     void setBoolean(String key, boolean value) throws StorageException;
 

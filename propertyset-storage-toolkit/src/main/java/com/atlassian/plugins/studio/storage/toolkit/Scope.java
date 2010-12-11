@@ -25,7 +25,8 @@ package com.atlassian.plugins.studio.storage.toolkit;
  * Time: 3:10 AM
  */
 @SuppressWarnings({"JavaDoc"})
-public interface Scope<U> {
+public interface Scope<U>
+{
     /**
      * Provides underlying PropertySet to delegate actual work to
      *

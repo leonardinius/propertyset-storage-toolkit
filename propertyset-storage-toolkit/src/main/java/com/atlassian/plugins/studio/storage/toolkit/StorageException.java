@@ -22,20 +22,25 @@ package com.atlassian.plugins.studio.storage.toolkit;
  * Date: 12/8/10
  * Time: 3:02 AM
  */
-public class StorageException extends RuntimeException {
-    public StorageException() {
+public class StorageException extends RuntimeException
+{
+    public StorageException()
+    {
         super();
     }
 
-    public StorageException(String s) {
+    public StorageException(String s)
+    {
         super(s);
     }
 
-    public StorageException(String s, Throwable throwable) {
+    public StorageException(String s, Throwable throwable)
+    {
         super(s, throwable);
     }
 
-    public StorageException(Throwable throwable) {
+    public StorageException(Throwable throwable)
+    {
         super(throwable);
     }
 }

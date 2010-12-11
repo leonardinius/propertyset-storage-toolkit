@@ -38,12 +38,14 @@ import static org.mockito.Mockito.when;
  * Date: 12/10/10
  * Time: 6:20 PM
  */
-public class ScopesTest {
+public class ScopesTest
+{
     @Mock
     PropertySet propertySet;
 
     @Test
-    public void testProjectScope() throws Exception {
+    public void testProjectScope() throws Exception
+    {
 
         Project project = mock(Project.class);
         when(project.getId()).thenReturn(567L);
@@ -53,7 +55,8 @@ public class ScopesTest {
     }
 
     @Test
-    public void testIssueScope() throws Exception {
+    public void testIssueScope() throws Exception
+    {
         Issue issue = mock(Issue.class);
         when(issue.getId()).thenReturn(569L);
 
@@ -62,7 +65,8 @@ public class ScopesTest {
     }
 
     @Test
-    public void testGvScope() throws Exception {
+    public void testGvScope() throws Exception
+    {
         MockGenericValue gv = new MockGenericValue("Name", ImmutableMap.of("id", 112L));
 
         InstanceId id = getId(Scopes.gvScope(gv), gv);
@@ -71,35 +75,41 @@ public class ScopesTest {
     }
 
     @Test
-    public void testConstantName() throws Exception {
+    public void testConstantName() throws Exception
+    {
         InstanceId id = getId(Scopes.constantName("cn.name"), "cn.name");
         Assert.assertThat(id, isEq(2L, "FacadeStorageConstant-cn.name", "constant-"));
     }
 
     @Test
-    public void testActionConfigurationInstance() throws Exception {
+    public void testActionConfigurationInstance() throws Exception
+    {
         InstanceId id = getId(Scopes.actionConfiguration(new MyAction()), new MyAction());
         Assert.assertThat(id, isEq(3L, "FacadeStorageAction-com.atlassian.plugins.studio.storage.toolkit.ScopesTest$MyAction", "class-"));
     }
 
 
     @Test
-    public void testActionConfigurationKlazz() throws Exception {
+    public void testActionConfigurationKlazz() throws Exception
+    {
         InstanceId id = getId(Scopes.actionConfiguration(MyAction.class), MyAction.class);
         Assert.assertThat(id, isEq(3L, "FacadeStorageAction-com.atlassian.plugins.studio.storage.toolkit.ScopesTest$MyAction", "class-"));
     }
 
-    private Matcher<InstanceId> isEq(Long id, String name, String prefix) {
+    private Matcher<InstanceId> isEq(Long id, String name, String prefix)
+    {
         return CoreMatchers.equalTo(new InstanceId(id, name, prefix));
     }
 
 
-    private <U> InstanceId getId(Scope<U> scope, U context) {
+    private <U> InstanceId getId(Scope<U> scope, U context)
+    {
         return ((AbstractDefaultScopeImpl<U>) scope).getInstanceId(context);
     }
 
 
-    private static class MyAction extends JiraWebActionSupport {
+    private static class MyAction extends JiraWebActionSupport
+    {
     }
 
 

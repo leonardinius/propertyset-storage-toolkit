@@ -22,9 +22,11 @@ import org.junit.Test;
 /**
  * Testing {@link com.atlassian.plugins.studio.storage.examples.ExampleServlet}
  */
-public class ExampleServletTest {
+public class ExampleServletTest
+{
     @Test
-    public void basic() {
+    public void basic()
+    {
         // add test here...
     }
 }

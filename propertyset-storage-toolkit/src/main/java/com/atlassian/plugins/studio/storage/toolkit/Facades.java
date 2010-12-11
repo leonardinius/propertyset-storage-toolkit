@@ -27,41 +27,50 @@ import webwork.action.Action;
  * Date: 12/10/10
  * Time: 4:16 AM
  */
-public class Facades {
-    private Facades() {
+public class Facades
+{
+    private Facades()
+    {
     }
 
     @SuppressWarnings({"WeakerAccess"})
-    public static <U> StorageFacade storage(Scope<U> scope, U context) throws StorageException {
+    public static <U> StorageFacade storage(Scope<U> scope, U context) throws StorageException
+    {
         return scope.load(context);
     }
 
 
-    public static StorageFacade projectStorage(Project project) throws StorageException {
+    public static StorageFacade projectStorage(Project project) throws StorageException
+    {
         return storage(Scopes.projectScope(project), project);
     }
 
 
-    public static StorageFacade issueStorage(Issue issue) throws StorageException {
+    public static StorageFacade issueStorage(Issue issue) throws StorageException
+    {
         return storage(Scopes.issueScope(issue), issue);
     }
 
 
-    public static StorageFacade gvStorage(GenericValue gv) throws StorageException {
+    public static StorageFacade gvStorage(GenericValue gv) throws StorageException
+    {
         return storage(Scopes.gvScope(gv), gv);
     }
 
 
-    public static StorageFacade constantNameStorage(String name) throws StorageException {
+    public static StorageFacade constantNameStorage(String name) throws StorageException
+    {
         return storage(Scopes.constantName(name), name);
     }
 
 
-    public static StorageFacade actionStorage(Action action) throws StorageException {
+    public static StorageFacade actionStorage(Action action) throws StorageException
+    {
         return storage(Scopes.actionConfiguration(action), action);
     }
 
-    public static <T extends Action> StorageFacade actionStorage(Class<T> actionClazz) throws StorageException {
+    public static <T extends Action> StorageFacade actionStorage(Class<T> actionClazz) throws StorageException
+    {
         return storage(Scopes.actionConfiguration(actionClazz), actionClazz);
     }
 

@@ -22,6 +22,7 @@ package com.atlassian.plugins.studio.storage.examples;
  * Date: 12/10/10
  * Time: 5:56 AM
  */
-public interface ExampleManager {
+public interface ExampleManager
+{
     void setup();
 }

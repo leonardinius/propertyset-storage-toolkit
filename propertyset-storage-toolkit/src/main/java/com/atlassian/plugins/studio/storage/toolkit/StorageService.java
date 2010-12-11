@@ -27,7 +27,8 @@ import webwork.action.Action;
  * Date: 12/10/10
  * Time: 5:31 AM
  */
-public interface StorageService {
+public interface StorageService
+{
 
     StorageFacade projectStorage(Project project) throws StorageException;
 

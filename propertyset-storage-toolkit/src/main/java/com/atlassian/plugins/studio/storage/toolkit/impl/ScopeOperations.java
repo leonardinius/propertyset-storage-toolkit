@@ -28,7 +28,8 @@ import com.opensymphony.module.propertyset.PropertySet;
  * Date: 12/8/10
  * Time: 3:10 AM
  */
-public interface ScopeOperations {
+public interface ScopeOperations
+{
     /**
      * Provides underlying PropertySet to delegate actual work to
      *

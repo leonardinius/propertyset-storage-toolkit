@@ -31,28 +31,35 @@ import webwork.action.Action;
  * Date: 12/10/10
  * Time: 5:40 AM
  */
-public class DefaultStorageServiceImpl implements StorageService {
-    public StorageFacade projectStorage(Project project) throws StorageException {
+public class DefaultStorageServiceImpl implements StorageService
+{
+    public StorageFacade projectStorage(Project project) throws StorageException
+    {
         return Facades.projectStorage(project);
     }
 
-    public StorageFacade issueStorage(Issue issue) throws StorageException {
+    public StorageFacade issueStorage(Issue issue) throws StorageException
+    {
         return Facades.issueStorage(issue);
     }
 
-    public StorageFacade gvStorage(GenericValue gv) throws StorageException {
+    public StorageFacade gvStorage(GenericValue gv) throws StorageException
+    {
         return Facades.gvStorage(gv);
     }
 
-    public StorageFacade constantNameStorage(String name) throws StorageException {
+    public StorageFacade constantNameStorage(String name) throws StorageException
+    {
         return Facades.constantNameStorage(name);
     }
 
-    public StorageFacade actionStorage(Action action) throws StorageException {
+    public StorageFacade actionStorage(Action action) throws StorageException
+    {
         return Facades.actionStorage(action);
     }
 
-    public <T extends Action> StorageFacade actionStorage(Class<T> actionClazz) throws StorageException {
+    public <T extends Action> StorageFacade actionStorage(Class<T> actionClazz) throws StorageException
+    {
         return Facades.actionStorage(actionClazz);
     }
 }

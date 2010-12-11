@@ -24,6 +24,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-        @interface ToolkitTest {
+        @interface ToolkitTest
+{
     @SuppressWarnings({"BooleanMethodIsAlwaysInverted"}) boolean ignore() default false;
 }

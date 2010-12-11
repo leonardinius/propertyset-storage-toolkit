@@ -43,17 +43,20 @@ import static com.atlassian.jira.util.dbc.Assertions.stateTrue;
  * Date: 12/11/10
  * Time: 11:17 AM
  */
-class TestSuite {
+class TestSuite
+{
     private final StorageService storageService = new DefaultStorageServiceImpl();
 
     @ToolkitTest
-    protected void shouldAlwaysBeSuccess() throws Exception {
+    protected void shouldAlwaysBeSuccess() throws Exception
+    {
         stateTrue("true is always true", true);
     }
 
 
     @ToolkitTest
-    protected void emptyConstantScopeShouldNeverReturnAnyData() throws Exception {
+    protected void emptyConstantScopeShouldNeverReturnAnyData() throws Exception
+    {
         String name = getClass().getName() + "-constantTest-shouldNeverReturnData";
 
         StorageFacade facade = storageService.constantNameStorage(name);
@@ -80,7 +83,8 @@ class TestSuite {
     }
 
     @ToolkitTest
-    protected void constantScopeSaveDeleteForString() throws Exception {
+    protected void constantScopeSaveDeleteForString() throws Exception
+    {
         String name = getClass().getName() + "-saveDeleteCycle";
         StorageFacade facade = storageService.constantNameStorage(name);
         facade.remove("string");
@@ -94,7 +98,8 @@ class TestSuite {
     }
 
     @ToolkitTest
-    protected void constantScopeSaveDeleteForText() throws Exception {
+    protected void constantScopeSaveDeleteForText() throws Exception
+    {
         String name = getClass().getName() + "-saveDeleteCycle";
         StorageFacade facade = storageService.constantNameStorage(name);
         facade.remove("text");
@@ -108,7 +113,8 @@ class TestSuite {
     }
 
     @ToolkitTest
-    protected void constantScopeSaveDeleteForBoolean() throws Exception {
+    protected void constantScopeSaveDeleteForBoolean() throws Exception
+    {
         String name = getClass().getName() + "-saveDeleteCycle";
         StorageFacade facade = storageService.constantNameStorage(name);
         facade.remove("boolean");
@@ -122,7 +128,8 @@ class TestSuite {
     }
 
     @ToolkitTest
-    protected void constantScopeSaveDeleteForDate() throws Exception {
+    protected void constantScopeSaveDeleteForDate() throws Exception
+    {
         String name = getClass().getName() + "-saveDeleteCycle";
         StorageFacade facade = storageService.constantNameStorage(name);
         facade.remove("date");
@@ -141,7 +148,8 @@ class TestSuite {
     }
 
     @ToolkitTest
-    protected void constantScopeSaveDeleteForDouble() throws Exception {
+    protected void constantScopeSaveDeleteForDouble() throws Exception
+    {
         String name = getClass().getName() + "-saveDeleteCycle";
         StorageFacade facade = storageService.constantNameStorage(name);
         facade.remove("double");
@@ -160,7 +168,8 @@ class TestSuite {
     }
 
     @ToolkitTest
-    protected void constantScopeSaveDeleteForLong() throws Exception {
+    protected void constantScopeSaveDeleteForLong() throws Exception
+    {
         String name = getClass().getName() + "-saveDeleteCycle";
         StorageFacade facade = storageService.constantNameStorage(name);
         facade.remove("long");
@@ -179,60 +188,72 @@ class TestSuite {
         not("long key should NOT exist now", facade.exists("long"));
     }
 
-    private static class MySerializable implements Serializable {
+    private static class MySerializable implements Serializable
+    {
         private String text;
         private Long number;
         private Map<String, String> mapping;
 
-        public MySerializable(long number, String text, Map<String, String> mapping) {
+        public MySerializable(long number, String text, Map<String, String> mapping)
+        {
             this.number = number;
             this.mapping = mapping;
             this.text = text;
         }
 
-        public String getText() {
+        public String getText()
+        {
             return text;
         }
 
-        public void setText(String text) {
+        public void setText(String text)
+        {
             this.text = text;
         }
 
-        public Long getNumber() {
+        public Long getNumber()
+        {
             return number;
         }
 
-        public void setNumber(Long number) {
+        public void setNumber(Long number)
+        {
             this.number = number;
         }
 
-        public Map<String, String> getMapping() {
+        public Map<String, String> getMapping()
+        {
             return mapping;
         }
 
-        public void setMapping(Map<String, String> mapping) {
+        public void setMapping(Map<String, String> mapping)
+        {
             this.mapping = mapping;
         }
 
         @Override
-        public int hashCode() {
+        public int hashCode()
+        {
             return HashCodeBuilder.reflectionHashCode(this);
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(Object o)
+        {
             return EqualsBuilder.reflectionEquals(this, o);
         }
 
         @Override
-        public String toString() {
+        public String toString()
+        {
             return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
         }
     }
 
 
     @ToolkitTest
-    protected void constantScopeSaveDeleteForObject() throws Exception {
+    protected void constantScopeSaveDeleteForObject() throws Exception
+    {
         String name = getClass().getName() + "-saveDeleteCycle";
         StorageFacade facade = storageService.constantNameStorage(name);
         facade.remove("object");
@@ -253,7 +274,8 @@ class TestSuite {
     }
 
     @ToolkitTest
-    protected void constantScopeSaveDeleteForProperties() throws Exception {
+    protected void constantScopeSaveDeleteForProperties() throws Exception
+    {
         String name = getClass().getName() + "-saveDeleteCycle";
         StorageFacade facade = storageService.constantNameStorage(name);
         facade.remove("properties");
@@ -276,7 +298,8 @@ class TestSuite {
     }
 
     @ToolkitTest(ignore = true)  // not supported by the underlying infrastructure yet
-    protected void constantScopeSaveDeleteForData() throws Exception {
+    protected void constantScopeSaveDeleteForData() throws Exception
+    {
         String name = getClass().getName() + "-saveDeleteCycle";
         StorageFacade facade = storageService.constantNameStorage(name);
         facade.remove("data");

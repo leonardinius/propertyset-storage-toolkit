@@ -38,7 +38,8 @@ import java.util.Map;
  * Date: 12/9/10
  * Time: 12:28 AM
  */
-public class DefaultScopeOperationsImpl implements ScopeOperations {
+public class DefaultScopeOperationsImpl implements ScopeOperations
+{
     private static final String STORAGE_ENTITY = "OSPropertyEntry";
     private static final String STORAGE_IMPL = "ofbiz";
     private static final String DELEGATOR_NAME = "default";
@@ -52,11 +53,13 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
      * @throws com.atlassian.plugins.studio.storage.toolkit.StorageException
      *
      */
-    public PropertySet loadDelegate(InstanceId instanceId) throws StorageException {
+    public PropertySet loadDelegate(InstanceId instanceId) throws StorageException
+    {
         return loadPropertySet(instanceId.getEntityName(), instanceId.getEntityId());
     }
 
-    private PropertySet loadPropertySet(String entityName, Long entityId) {
+    private PropertySet loadPropertySet(String entityName, Long entityId)
+    {
         final Map<String, Object> props = ImmutableMap.<String, Object>of(
                 "delegator.name", DELEGATOR_NAME,
                 "entityName", entityName,
@@ -64,7 +67,8 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
         return PropertySetManager.getInstance(STORAGE_IMPL, props);
     }
 
-    public void remove(PropertySet underlyingStorage) throws StorageException {
+    public void remove(PropertySet underlyingStorage) throws StorageException
+    {
         try {
 
             @SuppressWarnings({"unchecked"})
@@ -80,7 +84,8 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
         }
     }
 
-    public void removeByFilter(Long entityId, String entityName, String keyPrefix) throws StorageException {
+    public void removeByFilter(Long entityId, String entityName, String keyPrefix) throws StorageException
+    {
 
         try {
             final List<EntityExpr> likeExpressions = new LinkedList<EntityExpr>();
@@ -117,7 +122,8 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
         }
     }
 
-    public String serialize(Object instance) throws StorageException {
+    public String serialize(Object instance) throws StorageException
+    {
         if (instance == null) {
             return null;
         }
@@ -129,7 +135,8 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
         }
     }
 
-    public Object deserialize(String input) throws StorageException {
+    public Object deserialize(String input) throws StorageException
+    {
         if (input == null) {
             return null;
         }
@@ -142,11 +149,13 @@ public class DefaultScopeOperationsImpl implements ScopeOperations {
     }
 
     @SuppressWarnings({"WeakerAccess"})
-    protected XStream makeXstream() {
+    protected XStream makeXstream()
+    {
         return new XStream();
     }
 
-    private GenericDelegator getGenericDelegator() {
+    private GenericDelegator getGenericDelegator()
+    {
         return GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
     }
 

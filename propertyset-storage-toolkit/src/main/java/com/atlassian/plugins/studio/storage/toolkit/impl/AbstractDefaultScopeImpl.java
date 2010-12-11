@@ -27,10 +27,12 @@ import com.atlassian.plugins.studio.storage.toolkit.StorageFacade;
  * Date: 12/9/10
  * Time: 11:42 PM
  */
-public abstract class AbstractDefaultScopeImpl<U> implements Scope<U> {
+public abstract class AbstractDefaultScopeImpl<U> implements Scope<U>
+{
     private final ScopeOperations bridge;
 
-    public AbstractDefaultScopeImpl(ScopeOperations bridge) {
+    public AbstractDefaultScopeImpl(ScopeOperations bridge)
+    {
         this.bridge = bridge;
     }
 
@@ -45,13 +47,15 @@ public abstract class AbstractDefaultScopeImpl<U> implements Scope<U> {
      * @throws com.atlassian.plugins.studio.storage.toolkit.StorageException
      *
      */
-    public StorageFacade load(U context) throws StorageException {
+    public StorageFacade load(U context) throws StorageException
+    {
         InstanceId instanceId = getInstanceId(context);
         return new DefaultStorageFacadeImpl(instanceId, bridge, bridge.loadDelegate(instanceId));
     }
 
 
-    public void remove(U context) throws StorageException {
+    public void remove(U context) throws StorageException
+    {
         bridge.remove(bridge.loadDelegate(getInstanceId(context)));
     }
 

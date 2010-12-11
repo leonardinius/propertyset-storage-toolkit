@@ -29,16 +29,19 @@ import org.springframework.beans.factory.InitializingBean;
  * Date: 12/10/10
  * Time: 5:58 AM
  */
-public class ExampleManagerImpl implements ExampleManager, InitializingBean, DisposableBean {
+public class ExampleManagerImpl implements ExampleManager, InitializingBean, DisposableBean
+{
     private static final Logger logger = LoggerFactory.getLogger(ExampleManagerImpl.class);
     private final StorageService storageService;
 
-    public ExampleManagerImpl(StorageService storageService) {
+    public ExampleManagerImpl(StorageService storageService)
+    {
         this.storageService = storageService;
     }
 
     @Override
-    public void setup() {
+    public void setup()
+    {
         logger.error("setup");
 
         StorageFacade storageFacade = storageService.constantNameStorage("storageName");
@@ -53,12 +56,14 @@ public class ExampleManagerImpl implements ExampleManager, InitializingBean, Dis
 
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() throws Exception
+    {
         setup();
     }
 
     @Override
-    public void destroy() throws Exception {
+    public void destroy() throws Exception
+    {
         logger.error("destroy");
     }
 }

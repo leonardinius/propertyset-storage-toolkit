@@ -36,49 +36,60 @@ import javax.annotation.Nullable;
  * Date: 12/10/10
  * Time: 12:39 AM
  */
-public class Scopes {
+public class Scopes
+{
     private static final DefaultScopeOperationsImpl DEFAULT_OPERATIONS_IMPL_BRIDGE = new DefaultScopeOperationsImpl();
     private static final long CONSTANT_ENTITY_ID = 2L;
     private static final long ACTION_ENTITY_ID = 3L;
 
-    private Scopes() {
+    private Scopes()
+    {
     }
 
-    public static final class Builder<T> {
+    public static final class Builder<T>
+    {
         private Function<T, InstanceId> instanceIdProvider;
         private Function<ScopeOperations, Void> deleteAllFunctions;
         private ScopeOperations bridge = null;
 
 
-        public Builder(Function<T, InstanceId> instanceIdProvider, Function<ScopeOperations, Void> deleteAllFunctions) {
+        public Builder(Function<T, InstanceId> instanceIdProvider, Function<ScopeOperations, Void> deleteAllFunctions)
+        {
             this.instanceIdProvider = instanceIdProvider;
             this.deleteAllFunctions = deleteAllFunctions;
         }
 
-        public Builder() {
+        public Builder()
+        {
         }
 
 
-        public Builder gimmeId(Function<T, InstanceId> instanceIdProvider) {
+        public Builder gimmeId(Function<T, InstanceId> instanceIdProvider)
+        {
             this.instanceIdProvider = instanceIdProvider;
             return this;
         }
 
-        public Builder deleteAll(Function<ScopeOperations, Void> deleteAllFunctions) {
+        public Builder deleteAll(Function<ScopeOperations, Void> deleteAllFunctions)
+        {
             this.deleteAllFunctions = deleteAllFunctions;
             return this;
         }
 
-        public Builder withBridge(ScopeOperations bridge) {
+        public Builder withBridge(ScopeOperations bridge)
+        {
             this.bridge = bridge;
             return this;
         }
 
-        public <U> Builder<U> as(final Function<U, T> transformer) {
-            Function<U, InstanceId> newIdProvider = new Function<U, InstanceId>() {
+        public <U> Builder<U> as(final Function<U, T> transformer)
+        {
+            Function<U, InstanceId> newIdProvider = new Function<U, InstanceId>()
+            {
                 final Function<T, InstanceId> oldIdProvider = Builder.this.instanceIdProvider;
 
-                public InstanceId apply(@Nullable U from) {
+                public InstanceId apply(@Nullable U from)
+                {
                     return oldIdProvider.apply(transformer.apply(from));
                 }
             };
@@ -86,20 +97,24 @@ public class Scopes {
             return new Builder<U>(newIdProvider, this.deleteAllFunctions);
         }
 
-        public Scope<T> build() {
+        public Scope<T> build()
+        {
             Assertions.notNull("InstanceId provider is not specified", instanceIdProvider);
             Assertions.notNull("DeleteALL functionality is not provided", deleteAllFunctions);
 
             final ScopeOperations bridgeImpl = this.bridge == null ? DEFAULT_OPERATIONS_IMPL_BRIDGE : bridge;
 
-            return new AbstractDefaultScopeImpl<T>(bridgeImpl) {
+            return new AbstractDefaultScopeImpl<T>(bridgeImpl)
+            {
                 @Override
-                public InstanceId getInstanceId(T context) {
+                public InstanceId getInstanceId(T context)
+                {
                     return instanceIdProvider.apply(context);
                 }
 
                 @Override
-                public void removeAll() throws StorageException {
+                public void removeAll() throws StorageException
+                {
                     deleteAllFunctions.apply(bridgeImpl);
                 }
             };
@@ -107,35 +122,42 @@ public class Scopes {
     }
 
 
-    public static Scope<Project> projectScope(Project project) {
+    public static Scope<Project> projectScope(Project project)
+    {
         Assertions.notNull("Project scope parameter is null", project);
 
         String entityName = "FacadeStorageProject";
         String keyPrefix = "project-";
         return new Builder<Long>(new LongIdEntity(entityName, keyPrefix), new DeleteByNamePrefix(entityName, keyPrefix))
-                .as(new Function<Project, Long>() {
-                    public Long apply(@Nullable Project from) {
+                .as(new Function<Project, Long>()
+                {
+                    public Long apply(@Nullable Project from)
+                    {
                         return from.getId();
                     }
                 }).build();
     }
 
 
-    public static Scope<Issue> issueScope(Issue issue) {
+    public static Scope<Issue> issueScope(Issue issue)
+    {
         Assertions.notNull("Issue scope parameter is null", issue);
 
         String entityName = "FacadeStorageIssue";
         String keyPrefix = "issue-";
         return new Builder<Long>(new LongIdEntity(entityName, keyPrefix), new DeleteByNamePrefix(entityName, keyPrefix))
-                .as(new Function<Issue, Long>() {
-                    public Long apply(@Nullable Issue from) {
+                .as(new Function<Issue, Long>()
+                {
+                    public Long apply(@Nullable Issue from)
+                    {
                         return from.getId();
                     }
                 }).build();
     }
 
 
-    public static Scope<GenericValue> gvScope(GenericValue gv) {
+    public static Scope<GenericValue> gvScope(GenericValue gv)
+    {
         Assertions.notNull("Gv scope parameter is null", gv);
 
         String entityName = "FacadeStorageGv";
@@ -144,7 +166,8 @@ public class Scopes {
                 .build();
     }
 
-    public static Scope<String> constantName(String name) {
+    public static Scope<String> constantName(String name)
+    {
         Assertions.notNull("Constant name parameter is null", name);
 
         String entityName = "FacadeStorageConstant-" + name;
@@ -155,7 +178,8 @@ public class Scopes {
                 .build();
     }
 
-    private static <T extends Action> Builder<String> makeActionBuilder(Class<T> actionClass) {
+    private static <T extends Action> Builder<String> makeActionBuilder(Class<T> actionClass)
+    {
         String entityName = "FacadeStorageAction-" + actionClass.getName();
         String keyPrefix = "class-";
         Long entryId = ACTION_ENTITY_ID;
@@ -163,7 +187,8 @@ public class Scopes {
                 new DeleteByConstantId(entryId, entityName, keyPrefix));
     }
 
-    public static <T extends Action> Scope<Class<T>> actionConfiguration(Class<T> actionClass) {
+    public static <T extends Action> Scope<Class<T>> actionConfiguration(Class<T> actionClass)
+    {
         Assertions.notNull("Action class parameter is null", actionClass);
 
         return makeActionBuilder(actionClass)
@@ -171,7 +196,8 @@ public class Scopes {
                 .build();
     }
 
-    public static Scope<Action> actionConfiguration(Action action) {
+    public static Scope<Action> actionConfiguration(Action action)
+    {
         Assertions.notNull("Action parameter is null", action);
 
         return makeActionBuilder(action.getClass())
@@ -179,94 +205,111 @@ public class Scopes {
                 .build();
     }
 
-    private static class NoOpFun<F, T> implements Function<F, T> {
+    private static class NoOpFun<F, T> implements Function<F, T>
+    {
 
-        public T apply(@Nullable F from) {
+        public T apply(@Nullable F from)
+        {
             return null;
         }
     }
 
-    public static class ConstantIdEntity<U> implements Function<U, InstanceId> {
+    public static class ConstantIdEntity<U> implements Function<U, InstanceId>
+    {
         private final Long entryId;
 
         private final String entityName;
 
         private final String keyPrefix;
 
-        public ConstantIdEntity(Long entryId, String entityName, String keyPrefix) {
+        public ConstantIdEntity(Long entryId, String entityName, String keyPrefix)
+        {
             this.entryId = entryId;
             this.entityName = entityName;
             this.keyPrefix = keyPrefix;
         }
 
-        public InstanceId apply(@Nullable U from) {
+        public InstanceId apply(@Nullable U from)
+        {
             return new InstanceId(entryId, entityName, keyPrefix);
         }
     }
 
-    public static class LongIdEntity implements Function<Long, InstanceId> {
+    public static class LongIdEntity implements Function<Long, InstanceId>
+    {
         private final String entityName;
 
         private final String keyPrefix;
 
-        public LongIdEntity(String name, String prefix) {
+        public LongIdEntity(String name, String prefix)
+        {
             this.entityName = name;
             this.keyPrefix = prefix;
         }
 
-        public InstanceId apply(@Nullable Long from) {
+        public InstanceId apply(@Nullable Long from)
+        {
             return new InstanceId(from, entityName, keyPrefix);
         }
 
     }
 
-    public static class GenericValueIdEntity implements Function<GenericValue, InstanceId> {
+    public static class GenericValueIdEntity implements Function<GenericValue, InstanceId>
+    {
         private final String entityName;
 
         private final String keyPrefix;
 
-        public GenericValueIdEntity(String name, String prefix) {
+        public GenericValueIdEntity(String name, String prefix)
+        {
             this.entityName = name;
             this.keyPrefix = prefix;
         }
 
-        public InstanceId apply(@Nullable GenericValue from) {
+        public InstanceId apply(@Nullable GenericValue from)
+        {
             return new InstanceId(GenericValueUtils.transformToLongIds(ImmutableList.of(from))[0], entityName, keyPrefix);
         }
 
     }
 
-    public static class DeleteByNamePrefix implements Function<ScopeOperations, Void> {
+    public static class DeleteByNamePrefix implements Function<ScopeOperations, Void>
+    {
         private final String entityName;
 
         private final String keyPrefix;
 
-        public DeleteByNamePrefix(String name, String prefix) {
+        public DeleteByNamePrefix(String name, String prefix)
+        {
             this.entityName = name;
             this.keyPrefix = prefix;
         }
 
-        public Void apply(@Nullable ScopeOperations bridge) {
+        public Void apply(@Nullable ScopeOperations bridge)
+        {
             bridge.removeByFilter(null, entityName, keyPrefix);
             return null;
         }
 
     }
 
-    public static class DeleteByConstantId implements Function<ScopeOperations, Void> {
+    public static class DeleteByConstantId implements Function<ScopeOperations, Void>
+    {
         private final Long entryId;
 
         private final String entityName;
 
         private final String keyPrefix;
 
-        public DeleteByConstantId(Long entryId, String entityName, String keyPrefix) {
+        public DeleteByConstantId(Long entryId, String entityName, String keyPrefix)
+        {
             this.entryId = entryId;
             this.entityName = entityName;
             this.keyPrefix = keyPrefix;
         }
 
-        public Void apply(@Nullable ScopeOperations bridge) {
+        public Void apply(@Nullable ScopeOperations bridge)
+        {
             bridge.removeByFilter(entryId, entityName, keyPrefix);
             return null;
         }

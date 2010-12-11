@@ -25,22 +25,27 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * storage instance id
  */
-public class InstanceId {
-    public InstanceId(Long entityId, String entityName, String keyPrefix) {
+public class InstanceId
+{
+    public InstanceId(Long entityId, String entityName, String keyPrefix)
+    {
         this.keyPrefix = keyPrefix;
         this.entityName = entityName;
         this.entityId = entityId;
     }
 
-    public String getKeyPrefix() {
+    public String getKeyPrefix()
+    {
         return keyPrefix;
     }
 
-    public Long getEntityId() {
+    public Long getEntityId()
+    {
         return entityId;
     }
 
-    public String getEntityName() {
+    public String getEntityName()
+    {
         return entityName;
     }
 
@@ -49,7 +54,8 @@ public class InstanceId {
     private final String entityName;
 
 
-    public int hashCode() {
+    public int hashCode()
+    {
         return new HashCodeBuilder(17, 37)
                 .append(getKeyPrefix())
                 .append(getEntityName())
@@ -57,7 +63,8 @@ public class InstanceId {
                 .toHashCode();
     }
 
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         boolean result = false;
 
         if (this == o) {
@@ -76,7 +83,8 @@ public class InstanceId {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }
