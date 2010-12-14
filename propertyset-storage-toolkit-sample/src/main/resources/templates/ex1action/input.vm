@@ -1,0 +1,110 @@
+#* @vtlvariable name="adminOnly" type="boolean" *#
+#* @vtlvariable name="welcomeText" type="java.lang.String" *#
+#* @vtlvariable name="helloText" type="java.lang.String" *#
+
+
+<div style="background: #FFFFFF">
+    <form id="ex1form" method="post" action="${req.contextPath}/secure/admin/PropertySetConfigurableActionExample.jspa">
+        <table class="jiraform maxWidth">
+            <tr class="titlerow">
+                <td colspan="2" class="jiraformheader">
+
+                    <h3 class="formtitle">Edit Attachment Settings</h3>
+                    <br/><br/>
+                    Visit <a href="${req.contextPath}/secure/admin/PropertySetConfigurableActionExample!sayHello.jspa">Say Hello Page</a>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td align="fieldLabelArea">
+                    Admin only:&nbsp;
+                </td>
+
+                <td class="fieldValueArea">
+                    <input type="checkbox"
+                           id="adminOnly"
+                           name="adminOnly"
+                           value="true"
+                           #if($adminOnly != false)checked="checked"#end/>
+                    <br>
+                    <font size="1">An example of a boolean parameter.</font>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="fieldLabelArea">
+                    Hello text:&nbsp;
+                </td>
+
+                <td class="fieldValueArea">
+                    <input type="text"
+                           id="helloText"
+                           name="helloText"
+                           value="$textutils.htmlEncode(${helloText})"
+                           size="60"
+                            />
+                    <br>
+                    <font size="1">An example Input String.</font>
+                </td>
+            </tr>
+            <tr>
+                <td align="fieldLabelArea">
+                    Welcome Text:&nbsp;
+                </td>
+
+                <td class="fieldValueArea">
+                    <input type="text"
+                           id="welcomeText"
+                           name="welcomeText"
+                           value="$textutils.htmlEncode(${welcomeText})"
+                           size="60"
+                            />
+                    <br>
+                    <font size="1">An example of a boolean parameter.</font>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="jiraformfooter">&nbsp;</td>
+                <td class="jiraformfooter" style="text-align:left;">
+                    <input type="submit" name="Submit" id="Submit" value="Next&nbsp;&gt;&gt;"
+                           accesskey="S"
+                           title="Press Ctrl+S to submit form"
+                           class="spaced"
+                            />
+
+                    <input type="hidden" name="cancelUrl" value="${req.contextPath}/secure/Dashboard.jspa"/>
+                    <input type="submit" name="Cancel" id="Cancel" value="Cancel"
+                           accesskey="`"
+                           title="Press Alt+` to cancel form"
+                           class="spaced"
+                            />
+                </td>
+            </tr>
+
+        </table>
+    </form>
+
+
+    #if (${hasErrorMessages})
+    <table>
+        <tr>
+            <td>Error Messages</td>
+        </tr>
+        #foreach ($error in $action.getErrorMessages())
+            <tr>
+                <td>${error}</td>
+            </tr>
+        #end
+    <table>
+    #end
+
+    <br/>
+    <br/>
+    <h6>
+        <a href="https://github.com/leonardinius/propertyset-storage-toolkit/blob/master/propertyset-storage-toolkit-sample/src/main/java/com/atlassian/plugins/studio/storage/examples/ex1action/PropertySetConfigurableActionExample.java">Source
+            code</a></h6>
+</div>
+
+
