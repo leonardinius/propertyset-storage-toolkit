@@ -1,5 +1,8 @@
 # README
 
+## Disclaimer
+In case all you need is to store global or project-level configuration - then you definitely should take look into [SAL PluginSettings](http://confluence.atlassian.com/display/SAL/SAL+Services#SALServices-%21package2.gif%21%7B%7Bcom.atlassian.sal.api.pluginsettings%7D%7D).
+
 ## Description
 The toolkit is a set of utilities to access, look up and store [OpenSymphony's PropertySet](http://www.opensymphony.com/propertyset/) data. The thing is - no one really knows what's the best and the most painless process to store JIRA items configuration, let's say for your **__plug-in A__** at both plug-in and Project levels.
 The purpose and the intent of this project is to provide You as Plug-in developer with the toolkit and ready to use samples and snippets to choose from to make thing work. 
