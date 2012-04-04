@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Propertyset-storage-toolkit : Opensymhony PropertySet storage toolkit for Atlassian JIRA " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Propertyset-storage-toolkit</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/leonardinius/propertyset-storage-toolkit">Fork Me on GitHub</a>
+
+          <h1 id="project_title">Propertyset-storage-toolkit</h1>
+          <h2 id="project_tagline">Opensymhony PropertySet storage toolkit for Atlassian JIRA </h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/leonardinius/propertyset-storage-toolkit/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/leonardinius/propertyset-storage-toolkit/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>README</h1>
+
+<h2>Disclaimer</h2>
+
+<p>In case all you need is to store global or project-level configuration - then you definitely should take look into <a href="http://confluence.atlassian.com/display/SAL/SAL+Services#SALServices-%21package2.gif%21%7B%7Bcom.atlassian.sal.api.pluginsettings%7D%7D">SAL PluginSettings</a>.</p>
+
+<h2>Description</h2>
+
+<p>The toolkit is a set of utilities to access, look up and store <a href="http://www.opensymphony.com/propertyset/">OpenSymphony's PropertySet</a> data. The thing is - no one really knows what's the best and the most painless process to store JIRA items configuration, let's say for your <strong><strong>plug-in A</strong></strong> at both plug-in and Project levels.
+The purpose and the intent of this project is to provide You as Plug-in developer with the toolkit and ready to use samples and snippets to choose from to make thing work. </p>
+
+<p>As the project name states - it uses PropertySet as underlying storage implementation. It might not be the best choice for every plug-in out there in the wild world, still it's rather usable for most use cases I had so far.</p>
+
+<h2>Compatibility</h2>
+
+<p>The plugin is developed as JIRA Atlassian Plugin v2. This limits it's usage to JIRA &gt; 4x.
+On the other hand - it does not have any dependency on new stuff and should work correctly in JIRA 3xml as well (needs adjustments).
+Please inform me if you would try to modify it for earlier versions.</p>
+
+<h2>Feature Overview</h2>
+
+<ul>
+<li>Database persistence using <a href="http://www.opensymphony.com/propertyset/">PropertySet</a> for underlying data storage</li>
+<li>Has no additional JIRA dependencies and provides enhanced PropertySet API sub-set</li>
+<li>Could be used both as JAR dependency bundled with your plugin OR as separate plugin, depending one your current needs.</li>
+<li>Provides a rich set of out-of box list of <em>Scope</em> objects. (<em>Scope</em> defines the sandbox of the PropertySet storage instance). At
+the moment following configuration options are supported
+
+<ol>
+<li>Named configuration scope (Example: My Gadget1 Configuration)</li>
+<li>Action configuration scope (Example: your plugin may contain <em>Administration</em> action,
+which may require to persist and access administrator input).</li>
+<li>Project configuration scope (Example: you may associate configuration information with project object)</li>
+<li>Issue configuration scope (Example: you may associate configuration information with issue object)</li>
+</ol>
+</li>
+<li>The list of scopes is not limited and you may come-up with your own <em>Scope</em>
+</li>
+</ul><h2>Sample Code</h2>
+
+<h4>1. Action persistence in action</h4>
+
+<pre><code> private final StorageService storageService; // IoC by framework via Constructor Dependency Injection
+ ...
+
+ // data fields
+ private boolean adminOnly;
+ private String helloText;
+ private String welcomeText;
+
+ private StorageFacade getStorage()
+ {
+     return storageService.actionStorage(this);
+ }
+
+
+ private void loadConfig(StorageFacade storage)
+ {
+     setAdminOnly(storage.getBoolean(ADMIN_ONLY));
+     setHelloText(StringUtils.defaultString(storage.getString(HELLO_TEXT), "Hello, "));
+     setWelcomeText(StringUtils.defaultString(storage.getString(WELCOME_TEXT), "World"));
+ }
+
+ private void saveConfig(StorageFacade storage)
+ {
+     storage.setBoolean(ADMIN_ONLY, isAdminOnly());
+     storage.setString(HELLO_TEXT, getHelloText());
+     storage.setString(WELCOME_TEXT, getWelcomeText());
+ }
+</code></pre>
+
+<h4>2. DTO Object data persistence</h4>
+
+<pre><code>// class I want to save as My configuration data holder
+private static class MySerializable implements Serializable
+{
+    private String text;
+    private Long number;
+    private Map&lt;String, String&gt; mapping;
+
+    ...
+    getters, setters
+    ...
+    hashCode, equals
+}
+
+
+@ToolkitTest
+protected void constantScopeSaveDeleteForObject() throws Exception
+{
+    String name = getClass().getName() + "-saveDeleteCycle";
+    StorageFacade facade = storageService.constantNameStorage(name);
+    facade.remove("object");
+
+    MySerializable object = new MySerializable(10L, "data data", 
+        Maps.&lt;String, String&gt;newHashMap(ImmutableMap.of("1", "data1", "sdsd", "data2")));
+    stateTrue("First object access should be null", facade.getObject("object") == null);
+    facade.setObject("object", object);
+    stateTrue("object key should exist now", facade.exists("object"));
+    stateTrue("" + object + "=" + facade.getObject("object"), facade.getObject("object").equals(object));
+    facade.setObject("object", null);
+    not("object key should NOT exist now", facade.exists("object"));
+
+    facade.setObject("object", object);
+    stateTrue("long key should exist now", facade.exists("object"));
+    stateTrue("delete object should work", facade.remove("object"));
+    not("long key should NOT exist now", facade.exists("object"));
+}
+</code></pre>
+
+<h2>How do I get started?</h2>
+
+<p>As you may notice, the project code consists from two separate and completely valid Atlassian JIRA plugins. It contains the persistence
+toolkit itself as well as simple samples application with bundled-integration test and WebWork configurable action in action.</p>
+
+<p>You may proceed as it follows:</p>
+
+<ul>
+<li>Get the sources (if you are unfamiliar with Git or Github, help is <a href="http://help.github.com/">here</a>)</li>
+<li>If you still don't have Atlassian PDK installed - you probably are reading wrong README then. (it's <a href="http://confluence.atlassian.com/display/DEVNET/Developing+your+Plugin+using+the+Atlassian+Plugin+SDK">out there</a>). I used atlassian-plugin-sdk-3.2.3 at the moment of writing.</li>
+<li>Launch the terminal and <code>cd</code> to propertyset-storage-toolkit-sample folder</li>
+<li>
+<p>Execute the following command</p>
+
+<p>atlas-mvn -f ../propertyset-storage-toolkit/pom.xml clean package install \
+    &amp;&amp; atlas-mvn clean                                                      \
+    &amp;&amp; atlas-integration-test --plugins \
+       "com.atlassian.plugins.studio.propertyset.storage:propertyset-storage-toolkit:1.0-SNAPSHOT" \
+    &amp;&amp; atlas-debug --plugins \
+       "com.atlassian.plugins.studio.propertyset.storage:propertyset-storage-toolkit:1.0-SNAPSHOT"</p>
+</li>
+<li><p>Wait</p></li>
+</ul><p>The command above will compile and install into the local repository propertyset-storage-toolkit plugin artifact,
+then it will test it and launch sample application.</p>
+
+<h2>Sample Application Tutorial</h2>
+
+<p>If you succeed with the steps above - then you have proceed and open http://localhost:2990/jira/ link. You will notice new dropdown Menu Item "PropertySet Toolkit". Menu items descriptions:</p>
+
+<ul>
+<li>Integration Test Results - link to servlet with integration test data (servlet executes test suite and provides the execution summary).</li>
+<li>Manual - link to documentation (More to come)</li>
+<li>Configurable Action Example - Sample <a href="http://confluence.atlassian.com/display/JIRA/Webwork+plugin+module">WebWork Plugin Module</a> with configuration persistence enabled.</li>
+</ul><h2>Installation as separate plugin</h2>
+
+<p>See <a href="http://confluence.atlassian.com/display/JIRA/Managing+JIRA's+Plugins">Managing Jira's Plug-ins </a> page for more details.</p>
+
+<h2>How-To Recipes</h2>
+
+<p>.. TDB .. Now we are cooking, more to come.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Propertyset-storage-toolkit maintained by <a href="https://github.com/leonardinius">leonardinius</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
